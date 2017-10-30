@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\v0",
     "\\v0.1",
     "\\v0.1\\MQMS_WebApp",
-    "\\v0.1\\MQMS_WebApp\\MQMS_WebApp",
-    "\\v0\\MQMS_WebApp\\MQMS_WebApp"
+    "\\v0.1\\MQMS_WebApp\\MQMS_WebApp"
   ],
   "SelectedNode": "\\v0.1\\MQMS_WebApp\\MQMS_WebApp.sln",
   "PreviewInSolutionExplorer": false

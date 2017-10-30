@@ -33,8 +33,9 @@ namespace MQMS_WebApp
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseStaticFiles();
             app.UseMvc();
         }
+
     }
 }
