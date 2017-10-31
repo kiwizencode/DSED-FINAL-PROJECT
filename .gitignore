@@ -3,3 +3,6 @@
 ################################################################################
 
 /v0.2/MQMSWebApp/bin/Debug/netcoreapp2.0
+/v0.2/MQMSWebApp/obj/Debug/netcoreapp2.0
+/v0.2/MQMSWebApp/obj/Release/netcoreapp2.0
+/v0.2/MQMSWebApp/node_modules
