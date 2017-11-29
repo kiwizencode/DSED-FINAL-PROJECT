@@ -26,6 +26,21 @@
     <Content Remove="ClientApp\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="ClientApp\app\components\models\petsize.ts" />
+    <None Remove="ClientApp\app\components\shared\global.ts" />
+    <None Remove="ClientApp\app\components\system\petsize\petsize.component.ts" />
+    <None Remove="ClientApp\app\components\system\petsize\petsize.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\models\petsize.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\db.enum.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\global.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\system\petsize\petsize.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\rest.service.ts" />
+  </ItemGroup>
+
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

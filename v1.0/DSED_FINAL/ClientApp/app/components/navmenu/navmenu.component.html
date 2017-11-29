@@ -1,27 +1,47 @@
 <div class='nav alert-success'>
     <div class='navbar-header'>
+        <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>-->
+
+        <!-- <a class="navbar-brand" [routerLink]="['/home']">
+            <span class='glyphicon glyphicon-home'></span> Home
+        </a> -->
+
         <ul class='nav navbar-nav'>
-            <li [routerLinkActive]="['link-active']">
+             <li [routerLinkActive]="['link-active']">
                 <a class="navbar-brand" [routerLink]="['/home']">
                     <span class='glyphicon glyphicon-home'></span> Home
                 </a>
-            </li>
-
-            <li [routerLinkActive]="['link-active']">
-                <a [routerLink]="['/counter']">
+            </li> 
+            <!--<li [routerLinkActive]="['link-active']">
+                <a class="navbar-brand" [routerLink]="['/counter']">
                     <span class='glyphicon glyphicon-education'></span> Counter
                 </a>
             </li>
             <li [routerLinkActive]="['link-active']">
-                <a [routerLink]="['/fetch-data']">
+                <a class="navbar-brand" [routerLink]="['/fetch-data']">
                     <span class='glyphicon glyphicon-th-list'></span> Fetch data
                 </a>
-            </li>
+            </li>-->
             <li [routerLinkActive]="['link-active']">
-                <a [routerLink]="['/mpispecies']">
+                <a class="navbar-brand" [routerLink]="['/mpispecies']">
                     <span class='glyphicon glyphicon-th-list'></span> MPI Speices
                 </a>
             </li>
+            <!--<li [routerLinkActive]="['link-active']">
+                <a class="navbar-brand" [routerLink]="['/system/petsize']">
+                    <span class='glyphicon glyphicon-th-list'></span> Speices Size
+                </a>
+            </li>-->
         </ul>
+    </div>
+
+
+    <div class="navbar-collapse collapse">
+
     </div>
 </div>
