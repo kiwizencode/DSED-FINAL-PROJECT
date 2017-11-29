@@ -1,7 +1,7 @@
 ﻿/* The following code is modified from 
    https://www.codeproject.com/Articles/1181888/Angular-in-ASP-NET-MVC-Web-API-Part */
 
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -10,7 +10,8 @@ import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class RestAPIService {
-    constructor(private _http: Http) { }
+    constructor(private _http: Http,
+        @Inject('BASE_URL') private baseUrl: string) { }
 
     /*
         Get Method takes the RESTful API URL as a parameter and returning the Observable<any> (keep it generic)
@@ -20,7 +21,7 @@ export class RestAPIService {
         The type any is like a dynamic in C#, it does the compile type check.
     */
     get(url: string): Observable<any> {
-        return this._http.get(url)
+        return this._http.get(this.baseUrl +url)
             .map((response: Response) => <any>response.json())
             // .do(data => console.log("All: " + JSON.stringify(data)))
             .catch(this.handleError);
