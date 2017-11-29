@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { BsModalModule } from 'ng2-bs3-modal';
+
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
@@ -31,6 +33,7 @@ import { RestAPIService } from './components/shared/rest.service';
         RestAPIService
     ],    
     imports: [
+        BsModalModule,
         CommonModule,
         HttpModule,
         FormsModule, ReactiveFormsModule,

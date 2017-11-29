@@ -3425,6 +3425,12 @@
       "integrity": "sha512-rCxLpyTFXGpQOQCm32N4xGTN2roBsmIyUNQw6dFd/2yjVK+t7zmsFSO5IIuHioXAzTVGr4/LHFTOiz0JvJGnbg==",
       "dev": true
     },
+    "ngx-modal": {
+      "version": "0.0.29",
+      "resolved": "https://registry.npmjs.org/ngx-modal/-/ngx-modal-0.0.29.tgz",
+      "integrity": "sha1-aYqiUqeTI6DKR61N3umU1iCubxU=",
+      "dev": true
+    },
     "no-case": {
       "version": "2.3.1",
       "resolved": "https://registry.npmjs.org/no-case/-/no-case-2.3.1.tgz",

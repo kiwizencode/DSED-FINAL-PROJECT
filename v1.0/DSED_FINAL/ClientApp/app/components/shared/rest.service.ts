@@ -40,7 +40,7 @@ export class RestAPIService {
         let body = JSON.stringify(model);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
-        return this._http.put(url + id, body, options)
+        return this._http.put(this.baseUrl + url + id, body, options)
             .map((response: Response) => <any>response.json())
             .catch(this.handleError);
     }

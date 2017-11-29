@@ -1,6 +1,6 @@
 ﻿<div class='panel panel-primary'>
     <div class='panel-heading'>
-        <button class="btn btn-warning btn-xs" (click)="addUser()">Add</button> Aquatic Animal Size
+        <button class="btn btn-warning btn-xs" (click)="addUser()">Add</button> 
     </div>
     <div class='panel-body'>
         <div class='table-responsive'>
@@ -22,8 +22,8 @@
                         <!--<td>{{record.idPk}}</td>-->
                         <td>{{record.description}}</td>
                         <td style="width:1%;white-space:nowrap">
-                            <button title="Edit" class="btn btn-success btn-xs" (click)="editUser(user.Id)">Edit</button>
-                            <button title="Delete" class="btn btn-danger btn-xs" (click)="deleteUser(user.Id)">Delete</button>
+                            <button title="Edit" class="btn btn-success btn-xs" (click)="editData(record.idPk)">Edit</button>
+                            <button title="Delete" class="btn btn-danger btn-xs" (click)="deleteUser(record.idPk)">Delete</button>
                         </td>
                     </tr>
                 </tbody>
@@ -39,3 +39,14 @@
         </div>
     </div>
 </div>
+
+<!--<bs-modal #modal>
+        <bs-modal-header [showDismiss]="true">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+        </bs-modal-header>
+        <bs-modal-body>
+
+        </bs-modal-body>
+        <bs-modal-footer [showDefaultButtons]="true">
+        </bs-modal-footer>
+</bs-modal>-->
