@@ -161,6 +161,18 @@
       "integrity": "sha512-2YNL0jXYuN7w07mb1sMZQ6T6zOvGi83v8UbjhBZ8mhvI1VkQ2STU9XOrTFyvWswMyh5rW1evS+e7qltYJvTqPA==",
       "dev": true
     },
+    "@types/jquery": {
+      "version": "3.2.16",
+      "resolved": "https://registry.npmjs.org/@types/jquery/-/jquery-3.2.16.tgz",
+      "integrity": "sha512-q2WC02YxQoX2nY1HRKlYGHpGP1saPmD7GN0pwCDlTz35a4eOtJG+aHRlXyjCuXokUukSrR2aXyBhSW3j+jPc0A==",
+      "dev": true
+    },
+    "@types/underscore": {
+      "version": "1.8.5",
+      "resolved": "https://registry.npmjs.org/@types/underscore/-/underscore-1.8.5.tgz",
+      "integrity": "sha512-7uT7cvLf0saZ4NOsqwG/vu4nyvkvjwibMGGxDEsUkBdaqkq/8apWCnKEpRvcJesO7AnTo+xLqj9/dElDETiT5Q==",
+      "dev": true
+    },
     "@types/webpack-env": {
       "version": "1.13.0",
       "resolved": "https://registry.npmjs.org/@types/webpack-env/-/webpack-env-1.13.0.tgz",
@@ -3378,6 +3390,12 @@
         "minimist": "0.0.8"
       }
     },
+    "moment": {
+      "version": "2.18.1",
+      "resolved": "https://registry.npmjs.org/moment/-/moment-2.18.1.tgz",
+      "integrity": "sha1-w2GT3Tzhwu7SrbfIAtu8d6gbHA8=",
+      "dev": true
+    },
     "ms": {
       "version": "2.0.0",
       "resolved": "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz",
@@ -3419,16 +3437,19 @@
       "integrity": "sha1-KzJxhOiZIQEXeyhWP7XnECrNDKk=",
       "dev": true
     },
+    "ng2-bootstrap": {
+      "version": "1.6.3",
+      "resolved": "https://registry.npmjs.org/ng2-bootstrap/-/ng2-bootstrap-1.6.3.tgz",
+      "integrity": "sha1-i+9heddDa6VHkBRH8Y/uj/9DVcI=",
+      "dev": true,
+      "requires": {
+        "moment": "2.18.1"
+      }
+    },
     "ng2-bs3-modal": {
       "version": "0.13.0",
       "resolved": "https://registry.npmjs.org/ng2-bs3-modal/-/ng2-bs3-modal-0.13.0.tgz",
       "integrity": "sha512-rCxLpyTFXGpQOQCm32N4xGTN2roBsmIyUNQw6dFd/2yjVK+t7zmsFSO5IIuHioXAzTVGr4/LHFTOiz0JvJGnbg==",
-      "dev": true
-    },
-    "ngx-modal": {
-      "version": "0.0.29",
-      "resolved": "https://registry.npmjs.org/ngx-modal/-/ngx-modal-0.0.29.tgz",
-      "integrity": "sha1-aYqiUqeTI6DKR61N3umU1iCubxU=",
       "dev": true
     },
     "no-case": {
@@ -5587,6 +5608,12 @@
       "version": "1.0.2",
       "resolved": "https://registry.npmjs.org/ultron/-/ultron-1.0.2.tgz",
       "integrity": "sha1-rOEWq1V80Zc4ak6I9GhTeMiy5Po=",
+      "dev": true
+    },
+    "underscore": {
+      "version": "1.8.3",
+      "resolved": "https://registry.npmjs.org/underscore/-/underscore-1.8.3.tgz",
+      "integrity": "sha1-Tz+1OxBuYJf8+ctBCfKl6b36UCI=",
       "dev": true
     },
     "union-value": {

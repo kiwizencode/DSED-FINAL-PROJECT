@@ -29,6 +29,8 @@
   <ItemGroup>
     <None Remove="ClientApp\app\components\models\petsize.ts" />
     <None Remove="ClientApp\app\components\shared\global.ts" />
+    <None Remove="ClientApp\app\components\shared\modal.component.ts" />
+    <None Remove="ClientApp\app\components\shared\modal.service.ts" />
     <None Remove="ClientApp\app\components\system\petsize\petsize.component.ts" />
     <None Remove="ClientApp\app\components\system\petsize\petsize.service.ts" />
   </ItemGroup>
@@ -37,6 +39,8 @@
     <TypeScriptCompile Include="ClientApp\app\components\models\petsize.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\db.enum.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\global.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\modal.component.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\shared\modal.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\system\petsize\petsize.component.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\shared\rest.service.ts" />
   </ItemGroup>

@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { ModalModule, ModalDirective } from 'ng2-bootstrap';
+
 import { BsModalModule } from 'ng2-bs3-modal';
 
 import { AppComponent } from './components/app/app.component';
@@ -16,6 +18,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { MPISpeciesComponent } from './components/mpispecies/mpispecies.component';
 import { PetSizeComponent } from './components/system/petsize/petsize.component';
 
+//import { ModalComponent } from './components/shared/modal.component';
+//import { ModalService } from './components/shared/modal.service';
 
 import { RestAPIService } from './components/shared/rest.service';
 
@@ -27,13 +31,13 @@ import { RestAPIService } from './components/shared/rest.service';
         FetchDataComponent,
         HomeComponent,
         MPISpeciesComponent,
-        PetSizeComponent
+        PetSizeComponent //,ModalComponent
     ],
     providers:[ 
-        RestAPIService
+        RestAPIService //, ModalService
     ],    
     imports: [
-        BsModalModule,
+        ModalModule,
         CommonModule,
         HttpModule,
         FormsModule, ReactiveFormsModule,

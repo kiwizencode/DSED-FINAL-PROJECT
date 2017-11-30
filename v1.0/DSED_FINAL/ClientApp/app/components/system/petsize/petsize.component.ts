@@ -1,16 +1,22 @@
-﻿import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+﻿
+import { Component, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { ModalDirective } from 'ng2-bootstrap';
+
 //import { Observable } from 'rxjs/Rx';
 //import { Http } from "@angular/http";
-import { BsModalComponent } from 'ng2-bs3-modal';
+//import { BsModalComponent } from 'ng2-bs3-modal';
 
 import { IPetSize } from './../../models/petsize';
 import { DBOperation } from './../../shared/db.enum';
 import { Global } from './../../shared/global';
 
 import { RestAPIService } from './../../shared/rest.service';
+//import { ModalService } from './../../shared/modal.service';
 
 @Component({
+    moduleId: module.id.toString(),
     selector: 'petsize',
     templateUrl: './petsize.component.html'
 })
@@ -18,8 +24,10 @@ export class PetSizeComponent implements OnInit {
 
     page_title: string;
 
-    @ViewChild('modal')
-    modal: BsModalComponent;
+    //@ViewChild('modal')
+    //modal: BsModalComponent;
+    @ViewChild('childModal') public childModal: ModalDirective;
+
     records: IPetSize[];
     record: IPetSize;
     msg: string;
@@ -30,8 +38,11 @@ export class PetSizeComponent implements OnInit {
     modalBtnTitle: string;
     inputForm: FormGroup;
 
-    constructor(private fb: FormBuilder,
-        private _restService: RestAPIService) {}
+    constructor(
+        private fb: FormBuilder,
+        private _restService: RestAPIService)
+        //,private _modalService: ModalService) 
+        { }
 
     ngOnInit(): void {
 
@@ -72,6 +83,17 @@ export class PetSizeComponent implements OnInit {
         //this.inputForm.setValue(this.record);
         //this.modal.open();
         console.log("Edit Data : " + id);
+    }
+
+    openModal() {
+        console.log("open Modal Component");
+        //this._modalService.open(id);
+        this.childModal.show();
+    }
+
+    closeModal() {
+        this.childModal.hide();
+        //this._modalService.close(id);
     }
 
 
