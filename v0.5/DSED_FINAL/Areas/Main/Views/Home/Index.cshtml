@@ -1,0 +1,46 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@*
+    using the following uri as a template Home page
+    https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_temp_store&stacked=h
+*@
+
+@*<div class="jumbotron">
+    <div class="container text-center">
+        <h1>AIM Systems</h1>
+    </div>
+</div>*@
+
+<div class="row">
+    <div class="col-sm-4">
+        <div class="panel panel-info">
+            <div class="panel-heading" style="text-align:center;font-size:24px;">
+                Import Registry
+            </div>
+            <div class="panel-body text-center">
+                <ul class="nav">
+                    <li><a id="action_link" asp-area="" asp-controller="" asp-action="">Shipments</a></li>
+                    <li><a id="action_link" asp-area="" asp-controller="" asp-action="">Orders</a></li>
+                    <li><a id="action_link" asp-area="" asp-controller="" asp-action="">Species Items</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="panel panel-info">
+            <div class="panel-heading" style="text-align:center;font-size:24px;">
+                System
+            </div>
+            <div class="panel-body text-center">
+                @*<button class="btn-primary btn-block btn-lg"
+                        onclick="location.href='@Url.Action("Index", "PetSizes", new { area="System" })'">Species Size</button>*@
+                <ul class="nav">
+                    <li><a id="action_link" asp-area="System" asp-controller="PetSizes" asp-action="Index">Species Size</a></li>
+                    <li><a id="action_link" asp-area="System" asp-controller="MarineSpecies" asp-action="Index">MPI Species List</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

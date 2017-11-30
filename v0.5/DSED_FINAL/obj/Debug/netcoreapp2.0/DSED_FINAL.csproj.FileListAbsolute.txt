@@ -8,3 +8,4 @@ C:\Users\kiwizen\Desktop\kiwizen.code DSED\DSED-FINAL-PROJECT\v0.5\DSED_FINAL\ob
 C:\Users\kiwizen\Desktop\kiwizen.code DSED\DSED-FINAL-PROJECT\v0.5\DSED_FINAL\obj\Debug\netcoreapp2.0\DSED_FINAL.AssemblyInfo.cs
 C:\Users\kiwizen\Desktop\kiwizen.code DSED\DSED-FINAL-PROJECT\v0.5\DSED_FINAL\obj\Debug\netcoreapp2.0\DSED_FINAL.dll
 C:\Users\kiwizen\Desktop\kiwizen.code DSED\DSED-FINAL-PROJECT\v0.5\DSED_FINAL\obj\Debug\netcoreapp2.0\DSED_FINAL.pdb
+C:\Users\kiwizen\Desktop\kiwizen.code DSED\DSED-FINAL-PROJECT\v0.5\DSED_FINAL\obj\Debug\netcoreapp2.0\DSED_FINAL.csprojResolveAssemblyReference.cache

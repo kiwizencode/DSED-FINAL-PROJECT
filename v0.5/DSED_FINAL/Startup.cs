@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.ResponseCompression;
+using System.IO.Compression;
 
 namespace DSED_FINAL
 {
@@ -21,6 +24,18 @@ namespace DSED_FINAL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<Models.FIABContext>
+                (options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
+            /*  
+             *  Enable Response Compression In ASP.NET Core
+             *  http://www.binaryintellect.net/articles/85973b21-5466-413d-9cc5-f44c63686859.aspx
+             */
+            services.Configure<GzipCompressionProviderOptions>
+                (options => options.Level = CompressionLevel.Optimal);
+            services.AddResponseCompression(options => {
+                options.Providers.Add<GzipCompressionProvider>();
+            });
+            /* */
             services.AddMvc();
         }
 
@@ -41,8 +56,13 @@ namespace DSED_FINAL
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "areaRoute",
+                    template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+                routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{area=Main}/{controller=Home}/{action=Index}/{id?}"); 
+                    //template: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
