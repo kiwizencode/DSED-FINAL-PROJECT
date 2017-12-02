@@ -1,31 +1,37 @@
-<!-- Create a panel to hold all elements in the page -->
-<div class="panel panel-info">
-    <!-- Panel Heading -->
-    <div class="panel-heading text-center">
-        Testing Menu
-    </div>
-    <!-- Panel Body -->
-    <div class="panel-body">
-        <button class="btn-primary btn-block btn-lg" [routerLink]="['/counter']">Counter</button>
-        <button class="btn-primary btn-block btn-lg" [routerLink]="['/fetch-data']">Fetch Data</button>
-    </div>
-    <!-- Panel Footer -->
-    <!--<div class="panel-footer">
-    </div>-->
-</div>
+<div class="row">
+    <div class="col-sm-4">
 
-<!-- Create a panel to hold all elements in the page -->
-<div class="panel panel-info">
-    <!-- Panel Heading -->
-    <div class="panel-heading text-center">
-        System
+        <!-- Create a panel to hold all elements in the page -->
+        <div class="panel panel-info">
+            <!-- Panel Heading -->
+            <div class="panel-heading text-center">
+                Testing Menu
+            </div>
+            <!-- Panel Body -->
+            <div class="panel-body">
+                <button class="btn-primary btn-block btn-lg" [routerLink]="['/counter']">Counter</button>
+                <button class="btn-primary btn-block btn-lg" [routerLink]="['/fetch-data']">Fetch Data</button>
+            </div>
+            <!-- Panel Footer -->
+            <!--<div class="panel-footer">
+            </div>-->
+        </div>
     </div>
-    <!-- Panel Body -->
-    <div class="panel-body">
-        <button class="btn-primary btn-block btn-lg" [routerLink]="['/counter']">MPI Approved Species</button>
-        <!--<button class="btn-primary btn-block btn-lg" [routerLink]="['/fetch-data']">Fetch Data</button>-->
+    <div class="col-sm-4">
+        <!-- Create a panel to hold all elements in the page -->
+        <div class="panel panel-info">
+            <!-- Panel Heading -->
+            <div class="panel-heading text-center">
+                System
+            </div>
+            <!-- Panel Body -->
+            <div class="panel-body">
+                <button class="btn-primary btn-block btn-lg" [routerLink]="['/system/mpispecies']">MPI Approved Species</button>
+                <!--<button class="btn-primary btn-block btn-lg" [routerLink]="['/fetch-data']">Fetch Data</button>-->
+            </div>
+            <!-- Panel Footer -->
+            <!--<div class="panel-footer">
+            </div>-->
+        </div>
     </div>
-    <!-- Panel Footer -->
-    <!--<div class="panel-footer">
-    </div>-->
 </div>

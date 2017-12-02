@@ -1,0 +1,28 @@
+import { Pipe, PipeTransform, Injectable } from '@angular/core';
+
+
+/* This ts code is modified from URL
+   https://dzone.com/articles/implementing-an-angular-table-filter 
+   
+   http://www.advancesharp.com/blog/1211/angular-2-search-and-sort-with-ngfor-repeater-with-example
+
+   https://octoperf.com/blog/2016/04/05/angular2-ngfor-filter-using-pipes/
+   */
+
+import { MarineSpecies } from './../system/mpispecies/marine.species';
+
+@Pipe({ name: 'itemfilter-not-used' })
+
+@Injectable()
+export class ItemFilterPipe implements PipeTransform {
+    transform(speices: MarineSpecies[],
+              text: any
+             ) : any
+    {
+        if(text==null) return speices;
+
+        return speices.filter(
+            item => item.scientific.toLowerCase().indexOf(text.toLowerCase()) !== -1);
+        );
+    }
+}
