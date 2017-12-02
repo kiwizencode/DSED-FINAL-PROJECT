@@ -1,11 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\v0.5",
-    "\\v0.5\\DSED-FINAL",
-    "\\v1.0",
-    "\\v1.0\\DSED_FINAL"
+    "\\database",
+    "\\v0.9",
+    "\\v0.9\\DSED_FINAL"
   ],
-  "SelectedNode": "\\v0.5\\DSED-FINAL\\DSED-FINAL.csproj",
+  "SelectedNode": "\\v0.9\\DSED_FINAL\\DSED_FINAL.sln",
   "PreviewInSolutionExplorer": false
 }
