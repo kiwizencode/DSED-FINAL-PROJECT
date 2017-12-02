@@ -8,6 +8,11 @@ namespace DSED_FINAL.Models
     [Table("SYSTEM_TABLE")]
     public partial class SystemTable
     {
+        public SystemTable()
+        {
+            InverseGroupFkNavigation = new HashSet<SystemTable>();
+        }
+
         [Key]
         [Column("ID_PK")]
         public int IdPk { get; set; }
@@ -22,5 +27,11 @@ namespace DSED_FINAL.Models
         public int? GroupFk { get; set; }
         [Column("DELETED")]
         public bool Deleted { get; set; }
+
+        [ForeignKey("GroupFk")]
+        [InverseProperty("InverseGroupFkNavigation")]
+        public SystemTable GroupFkNavigation { get; set; }
+        [InverseProperty("GroupFkNavigation")]
+        public ICollection<SystemTable> InverseGroupFkNavigation { get; set; }
     }
 }

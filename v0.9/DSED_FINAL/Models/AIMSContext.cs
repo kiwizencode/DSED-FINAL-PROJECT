@@ -6,15 +6,13 @@ namespace DSED_FINAL.Models
 {
     public partial class AIMSContext : DbContext
     {
-        public AIMSContext(DbContextOptions<AIMSContext> opts) : base(opts) {}
+        public AIMSContext(DbContextOptions<AIMSContext> opts) : base(opts) { }
 
         public virtual DbSet<DailyLog> DailyLog { get; set; }
         public virtual DbSet<Mortality> Mortality { get; set; }
         public virtual DbSet<Species> Species { get; set; }
         public virtual DbSet<SystemTable> SystemTable { get; set; }
         public virtual DbSet<TankLog> TankLog { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,6 +27,14 @@ namespace DSED_FINAL.Models
                     .WithMany(p => p.DailyLog)
                     .HasForeignKey(d => d.ReasonFk)
                     .OnDelete(DeleteBehavior.ClientSetNull);
+            });
+
+            modelBuilder.Entity<SystemTable>(entity =>
+            {
+                entity.HasOne(d => d.GroupFkNavigation)
+                    .WithMany(p => p.InverseGroupFkNavigation)
+                    .HasForeignKey(d => d.GroupFk)
+                    .HasConstraintName("FK_SYSTEM_TABLE_SYSTEM_TABLE");
             });
 
             modelBuilder.Entity<TankLog>(entity =>
