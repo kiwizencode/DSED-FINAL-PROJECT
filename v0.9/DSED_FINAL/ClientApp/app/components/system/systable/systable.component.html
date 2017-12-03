@@ -4,14 +4,14 @@
     <div class="panel-heading">
         <div class="container">
             <div class="row">
-                <div class="col-xs-8">
+                <div class="col-xs-7">
                     <h4>
-                        <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#inputModal"
-                               (click)="createData()">
+                        <a class="btn btn-warning" data-toggle="modal" data-target="#inputModal"
+                                (click)="createData()">
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
                         &nbsp;&nbsp; System Table
-                     </h4>
+                        </h4>
                 </div>
             </div>
 
@@ -20,6 +20,7 @@
     <!-- How to make panel-heading fixed with Bootstrap? -->
     <!-- https://stackoverflow.com/questions/35418358/how-to-make-panel-heading-fixed-with-bootstrap -->
     <!-- Panel Body -->
+    <!--   -->
     <div class="panel-body" style="padding:0;border:0px;height:450px;overflow-y:auto">
         <p *ngIf="!records"><em>Loading...</em></p>
         <table class="table table-bordered table-striped">
@@ -41,13 +42,14 @@
                         <div>
                             <!-- Edit Button -->
                             <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#inputModal"
-                               (click)="editData(data.idPk)">
+                                (click)="editData(data.idPk)">
                                 <span class='glyphicon glyphicon-pencil'></span>
                             </a>
                             <!--<a class="btn btn-primary btn-sm">
                                 <span class='glyphicon glyphicon-search'></span>
                             </a>-->
-                            <a class="btn btn-danger btn-xs">
+                            <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#inputModal"
+                            (click)="deleteData(data.idPk)">
                                 <span class='glyphicon glyphicon-trash'></span>
                             </a>
                         </div>
@@ -57,39 +59,36 @@
         </table>
     </div>
     <!-- Panel Footer -->
-    <div class="panel-footer">
-    </div>
+    <!--<div class="panel-footer">
+    </div>-->
 </div>
 
-<div class="container-fluid">
-    <!-- Modal Input Form -->
-    <div class="modal fade" id="inputModal" role="dialog">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form [formGroup]="modalForm">
-                    <div class="modal-header">
-                        <h4 class="modal-title">{{modalTitle}}</h4>
+<!-- Modal Input Form -->
+<div class="modal fade" id="inputModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header modal-header-primary">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">{{modalTitle}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group" [formGroup]="modalForm">
+                    <div>
+                        <p><span>&nbsp;Value</span></p>
+                        <input type="text" class="form-control" placeholder="Enter Value" formControlName="value">
                     </div>
-                    <div class="modal-body">
-
-                        <div class="form-group">
-                            <div>
-                                <span>Value</span>
-                                <input type="text" class="form-control" placeholder="Enter Value" formControlName="value">
-                            </div>
-                            <div>
-                                <span>Value</span>
-                                <input type="text" class="form-control" placeholder="Enter Text" formControlName="text">
-                            </div>
-                        </div>
+                    <br />
+                    <div>
+                        <p><span>&nbsp;Text</span></p>
+                        <input type="text" class="form-control" placeholder="Enter Text" formControlName="text">
                     </div>
-                    <div class="modal-footer">
-                        <div>
-                            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-                            <button class="btn btn-primary" data-dismiss="modal">{{modalButtonTitle}}</button>
-                        </div>
-                    </div>
-                </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div>
+                    <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                    <button class="btn btn-primary" data-dismiss="modal">{{modalButtonTitle}}</button>
+                </div>
             </div>
         </div>
     </div>

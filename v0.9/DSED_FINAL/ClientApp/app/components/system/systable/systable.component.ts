@@ -10,7 +10,8 @@ import { SystemTable } from './../../model/system.table';
 import { CRUD_Operation } from './../../shared/enum';
 
 @Component({
-    templateUrl: './systable.component.html'
+    templateUrl: './systable.component.html',
+    styleUrls: ['./systable.component.css']
 })
 
 export class SystemTableComponent implements OnInit {
@@ -68,4 +69,14 @@ export class SystemTableComponent implements OnInit {
         this.record = this.records.filter(x => x.idPk == id)[0];
         this.modalForm.setValue(this.record);
     }
+
+    deleteData(id: number)
+    {
+        this.DB_Operation = CRUD_Operation.delete;
+        this.SetFormState(false);
+        this.modalTitle = 'Confirm to Delete ?' ;//+ this.Table_Name ;
+        this.modalButtonTitle = 'Delete' ;
+        this.record = this.records.filter(x => x.idPk == id)[0];
+        this.modalForm.setValue(this.record);
+    }    
 }
