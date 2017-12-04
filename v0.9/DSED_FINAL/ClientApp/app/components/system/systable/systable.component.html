@@ -22,72 +22,95 @@
     <!-- Panel Body -->
     <!--   -->
     <div class="panel-body" style="padding:0;border:0px;height:450px;overflow-y:auto">
-        <p *ngIf="!records"><em>Loading...</em></p>
-        <table class="table table-bordered table-striped">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Value</th>
-                    <th>Text</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let data of records">
-                    <td>{{ data.idPk }}</td>
-                    <td>{{ data.value }}</td>
-                    <td>{{ data.text }}</td>
-                    <!-- set the column to just fit contents-->
-                    <td style="width:1%;white-space:nowrap">
-                        <div>
-                            <!-- Edit Button -->
-                            <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#inputModal"
-                                (click)="editData(data.idPk)">
-                                <span class='glyphicon glyphicon-pencil'></span>
-                            </a>
-                            <!--<a class="btn btn-primary btn-sm">
-                                <span class='glyphicon glyphicon-search'></span>
-                            </a>-->
-                            <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#inputModal"
-                            (click)="deleteData(data.idPk)">
-                                <span class='glyphicon glyphicon-trash'></span>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>            
-        </table>
+        
+            <p *ngIf="!records"><em>Loading...</em></p>
+            <table class="table table-bordered table-striped" *ngIf='records && records.length'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Value</th>
+                        <th>Text</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of records">
+                        <td>{{ data.idPk }}</td>
+                        <td>{{ data.value }}</td>
+                        <td>{{ data.text }}</td>
+                        <!-- set the column to just fit contents-->
+                        <td style="width:1%;white-space:nowrap">
+                            <div>
+                                <!-- Edit Button -->
+                                <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#inputModal"
+                                   (click)="editData(data.idPk)">
+                                    <span class='glyphicon glyphicon-pencil'></span>
+                                </a>
+                                <!--<a class="btn btn-primary btn-sm">
+                            <span class='glyphicon glyphicon-search'></span>
+                        </a>-->
+                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#inputModal"
+                                   (click)="deleteData(data.idPk)">
+                                    <span class='glyphicon glyphicon-trash'></span>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+
     </div>
     <!-- Panel Footer -->
-    <!--<div class="panel-footer">
-    </div>-->
+    <div class="panel-footer">
+            <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{status}}
+                  </div>        
+    </div>
 </div>
 
 <!-- Modal Input Form -->
 <div class="modal fade" id="inputModal" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
-            <div class="modal-header modal-header-primary">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">{{modalTitle}}</h4>
-            </div>
-            <div class="modal-body">
-                <div class="form-group" [formGroup]="modalForm">
+            <div class="form-group"  [formGroup]="modalForm">
+                <div class="modal-header modal-header-primary">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">{{modalTitle}}</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- Value Input Field -->
                     <div>
                         <p><span>&nbsp;Value</span></p>
                         <input type="text" class="form-control" placeholder="Enter Value" formControlName="value">
                     </div>
                     <br />
+                    <!-- Text Input Field -->
                     <div>
                         <p><span>&nbsp;Text</span></p>
                         <input type="text" class="form-control" placeholder="Enter Text" formControlName="text">
                     </div>
+                    <br />
+                    <!-- GroupFk Dropdown List -->
+                    <div>
+                        <p><span>&nbsp;Group</span></p>
+                        <select class="form-control" formControlName="groupFk">
+                            <option value="0">--Select--</option>
+                            <option *ngFor="let group of groupFKs" value={{group.idPk}}>{{group.text}}</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div>
-                    <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-                    <button class="btn btn-primary" data-dismiss="modal">{{modalButtonTitle}}</button>
+                <div class="modal-footer">
+                    <div>
+                        <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                        <button [disabled]="modalForm.invalid" class="btn btn-primary" data-dismiss="modal"
+                                (click)="onSubmit(modalForm)">
+                                {{modalButtonTitle}}</button>
+                    </div>
                 </div>
             </div>
         </div>

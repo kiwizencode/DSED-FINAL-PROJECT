@@ -9,7 +9,7 @@ using DSED_FINAL.Models;
 
 namespace DSED_FINAL.Controllers.Systems
 {
-    //[Produces("application/json")]
+    [Produces("application/json")]
     //[Route("api/SystemTables")]
     [Route("api/[controller]")]
     public class SystemTablesController : Controller
@@ -21,17 +21,23 @@ namespace DSED_FINAL.Controllers.Systems
             _context = context;
         }
 
-        // GET: api/SystemTables/GetTables
-        //[HttpGet]
-        [HttpGet("[action]")]
-        public IEnumerable<SystemTable> GetTables()
+        // GET: api/SystemTables/GetSystemTable
+        [HttpGet]
+        //[HttpGet("[action]")]
+        public IEnumerable<SystemTable> GetSystemTable()
         {
-            return _context.SystemTable;
+            return _context.SystemTable.Where(x => x.GroupFk == null);
+        }
+
+        [HttpGet("[action]")]
+        public IEnumerable<SystemTable> GetGroupFk()
+        {
+            return _context.SystemTable.Where(x => x.GroupFk==null);
         }
 
         // GET: api/SystemTables/5
-        //[HttpGet("{id}")]
-        [HttpGet("[action]/{id}")]
+        [HttpGet("{id}")]
+        //[HttpGet("[action]/{id}")]
         public async Task<IActionResult> GetSystemTable([FromRoute] int id)
         {
             if (!ModelState.IsValid)
@@ -51,6 +57,7 @@ namespace DSED_FINAL.Controllers.Systems
 
         // PUT: api/SystemTables/5
         [HttpPut("{id}")]
+        //[HttpPut("[action]/{id}")]
         public async Task<IActionResult> PutSystemTable([FromRoute] int id, [FromBody] SystemTable systemTable)
         {
             if (!ModelState.IsValid)

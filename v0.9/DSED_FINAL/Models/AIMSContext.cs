@@ -14,6 +14,8 @@ namespace DSED_FINAL.Models
         public virtual DbSet<SystemTable> SystemTable { get; set; }
         public virtual DbSet<TankLog> TankLog { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DailyLog>(entity =>
@@ -27,14 +29,6 @@ namespace DSED_FINAL.Models
                     .WithMany(p => p.DailyLog)
                     .HasForeignKey(d => d.ReasonFk)
                     .OnDelete(DeleteBehavior.ClientSetNull);
-            });
-
-            modelBuilder.Entity<SystemTable>(entity =>
-            {
-                entity.HasOne(d => d.GroupFkNavigation)
-                    .WithMany(p => p.InverseGroupFkNavigation)
-                    .HasForeignKey(d => d.GroupFk)
-                    .HasConstraintName("FK_SYSTEM_TABLE_SYSTEM_TABLE");
             });
 
             modelBuilder.Entity<TankLog>(entity =>

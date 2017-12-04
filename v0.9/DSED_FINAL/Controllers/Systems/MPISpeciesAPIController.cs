@@ -50,7 +50,8 @@ namespace DSED_FINAL.Controllers.Systems
         }
 
         // PUT: api/MPISpeciesAPI/5
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
+        [HttpPut("[action]/{id}")]
         public async Task<IActionResult> PutSpecies([FromRoute] int id, [FromBody] Species species)
         {
             if (!ModelState.IsValid)
