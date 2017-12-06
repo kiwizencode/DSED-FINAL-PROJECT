@@ -8,6 +8,11 @@ namespace DSED_FINAL.Models
     [Table("QUARANTINE_PERIOD")]
     public partial class QuarantinePeriod
     {
+        public QuarantinePeriod()
+        {
+            QuarantineTank = new HashSet<QuarantineTank>();
+        }
+
         [Key]
         [Column("ID_PK")]
         public int IdPk { get; set; }
@@ -20,5 +25,8 @@ namespace DSED_FINAL.Models
         public DateTime? ClosedDate { get; set; }
         [Column("CLOSED_FLAG")]
         public bool ClosedFlag { get; set; }
+
+        [InverseProperty("PeriodFkNavigation")]
+        public ICollection<QuarantineTank> QuarantineTank { get; set; }
     }
 }

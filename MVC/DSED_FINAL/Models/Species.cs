@@ -8,6 +8,11 @@ namespace DSED_FINAL.Models
     [Table("SPECIES")]
     public partial class Species
     {
+        public Species()
+        {
+            InvoiceDetail = new HashSet<InvoiceDetail>();
+        }
+
         [Key]
         [Column("ID_PK")]
         public int IdPk { get; set; }
@@ -19,5 +24,8 @@ namespace DSED_FINAL.Models
         [Column("COMMON")]
         [StringLength(80)]
         public string Common { get; set; }
+
+        [InverseProperty("SpeciesFkNavigation")]
+        public ICollection<InvoiceDetail> InvoiceDetail { get; set; }
     }
 }

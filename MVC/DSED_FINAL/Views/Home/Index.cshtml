@@ -5,20 +5,40 @@
 <div class="row">
     <div class="col-sm-4">
         <div class="panel panel-info">
-            <div class="panel-heading text-center" style="font-size:24px;">Menu 1</div>
+            <div class="panel-heading text-center" style="font-size:24px;">Import</div>
             <div class="panel-body">
                 <button class="btn-primary btn-block btn-lg"
-                        onclick="location.href='@Url.Action("Index", "QuarantinePeriods")'">
-                    Quarantine Period
+                        onclick="location.href='@Url.Action("Index", "Invoices")'">
+                    Invoice
                 </button>
+                @*<button class="btn-primary btn-block btn-lg"
+                            onclick="location.href='@Url.Action("Index", "Tanks")'">
+                        Tank
+                    </button>
+                    <button class="btn-primary btn-block btn-lg"
+                            onclick="location.href='@Url.Action("Index", "PetSizes")'">
+                        Order Size
+                    </button>*@
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+        <div class="panel panel-info">
+            <div class="panel-heading text-center" style="font-size:24px;">System</div>
+            <div class="panel-body">
                 <button class="btn-primary btn-block btn-lg"
-                        onclick="location.href='@Url.Action("Index", "Tanks")'">
-                    Tank
+                        onclick="location.href='@Url.Action("Index", "Suppliers")'">
+                    Supplier
                 </button>
-                <button class="btn-primary btn-block btn-lg"
-                        onclick="location.href='@Url.Action("Index", "PetSizes")'">
-                    Order Size
-                </button>
+                @*<button class="btn-primary btn-block btn-lg"
+            onclick="location.href='@Url.Action("Index", "Tanks")'">
+        Tank
+    </button>
+    <button class="btn-primary btn-block btn-lg"
+            onclick="location.href='@Url.Action("Index", "PetSizes")'">
+        Order Size
+    </button>*@
             </div>
         </div>
     </div>
