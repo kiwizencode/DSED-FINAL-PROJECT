@@ -8,6 +8,10 @@
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -17,31 +21,42 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top alert-success">
+        <div class="container" style="padding-left:10px;padding-right:0px">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                @*<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">DSED_FINAL</a>
+                </button>*@
+                <div class="container" style="padding-left:0px;padding-right:0px">
+                    <div style="float:left">
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"
+                           style="color:black">Home</a>
+                    </div>
+                    <!-- pad with empty space between div-->
+                    <div style="float:left;padding:5px;">&nbsp;</div>
+                    <div style="float:left;padding-top:8px">
+                        <span style="color:black;font-size:24px;">DSED Final Project</span>
+                    </div>  
+                </div>
+
             </div>
-            <div class="navbar-collapse collapse">
+            @*<div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
-            </div>
+            </div>*@
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2017 - DSED_FINAL</p>
+            <p><span style="color:Black;font-size:12pt">&copy; 2017 DSED Final Assignment by <a href="mailto:kiwizen.code@hotmail.com">Keum-Hong, Lim</a></span></p>
         </footer>
     </div>
 
