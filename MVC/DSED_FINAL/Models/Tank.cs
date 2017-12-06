@@ -11,15 +11,9 @@ namespace DSED_FINAL.Models
         [Key]
         [Column("ID_PK")]
         public int IdPk { get; set; }
-        [Column("LANE_FK")]
-        public int LaneFk { get; set; }
         [Required]
         [Column("CODE")]
         [StringLength(10)]
         public string Code { get; set; }
-
-        [ForeignKey("LaneFk")]
-        [InverseProperty("Tank")]
-        public Lane LaneFkNavigation { get; set; }
     }
 }
