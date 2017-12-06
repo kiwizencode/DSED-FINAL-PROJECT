@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 /* Date Picker */
 //import { DatePickerModule } from 'ng2-datepicker-bootstrap'
 //import { DatepickerModule } from 'angular2-material-datepicker';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/app/home/navmenu/navmenu.component';
@@ -26,16 +27,15 @@ import { SpeciesFilterPipe } from './components/app/model/species.filter.pipe';
         AppComponent,
         NavMenuComponent,
         HomeComponent,
-        SpeciesComponent,  // MPI Species
+        SpeciesComponent,  // Species
         SpeciesFilterPipe,
         QuarantinePeriodComponent
     ],
     imports: [
-        //DateValueAccessorModule,
+        DateValueAccessorModule, // date value accessor
         CommonModule,
         HttpModule,
         FormsModule, ReactiveFormsModule,
-        DatepickerModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

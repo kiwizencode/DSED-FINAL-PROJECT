@@ -1,4 +1,4 @@
-export interface QurantinePeriod {
+export class QurantinePeriod {
     idPk: number;
     startDate: Date;
     text: string;

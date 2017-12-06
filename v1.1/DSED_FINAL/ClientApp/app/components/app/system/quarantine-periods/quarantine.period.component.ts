@@ -1,8 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, OnInit, OnChanges } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 //import { DatePickerModule } from 'ng2-datepicker-bootstrap';
 //import { DatepickerModule } from 'angular2-material-datepicker';
+
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
 
 /* Following Angular pipe format date according rto locale rules
    https://angular.io/api/common/DatePipe */
@@ -15,23 +17,31 @@ import { RestAPIService } from './../../service/restAPI.service';
 
 /* Modal class */
 import { QurantinePeriod } from './../../model/quarintine.period';
+import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
     selector:'quarantine-period',
     templateUrl: './quarantine.period.component.html'
 })
-export class QuarantinePeriodComponent implements OnInit {
+export class QuarantinePeriodComponent implements OnInit, OnChanges {
     pageTitle: string = 'Quarantine Periods'
 
+    
     records: QurantinePeriod[];
     record: QurantinePeriod;
     //release: QurantinePeriod;
 
+
     //Table_Name:string  = 'System Table';
     DB_Operation: CRUD_Operation ;
-    modalForm: FormGroup;
+    
     modalTitle: string;
     modalButtonTitle: string;
+
+    modalForm: FormGroup;
+
+    /* Create Form Control */
+
     
     /* Display information back to user. */
     status: string ;
@@ -40,28 +50,41 @@ export class QuarantinePeriodComponent implements OnInit {
                     private _restAPIService: RestAPIService,
                     private _formbuiler: FormBuilder ) {
     }
+
     ngOnInit() : void {
 
         /* Initialize input data form */
         this.modalForm = this._formbuiler.group({
-            idPk: Number,
-            startDate: '', //, Validators.required],
-            text: String, //, Validators.required]
-            closedDate: null,
-            closedFlag: false
+            idPk: [new Number],
+            startDate: [ new Date ],
+            text: [ new String],
+            closedDate: [ new Date],
+            closedFlag: [ new Boolean]
         });
+
+        /* react to changes in form */
         /*
-        this.modalForm.valueChanges.subscribe( value => 
-            this.release = new QurantinePeriod(
-                value.idPk,value.startDate, value.text,value.closedDate, value.closedFlag
-            )
-        );
+        this.modalForm.value['startDateField'].valueChanges.subscribe(
+            (term: Date) => {
+                this.record.startDate = term ;
+        });
         */
 
         this.modalButtonTitle='To-be-defined';
         this.status='';
 
         this.loadData();
+
+        this.record = new QurantinePeriod ;
+        console.log('[Init] record : '+JSON.stringify(this.record));
+    }
+
+    ngOnChanges( changes: SimpleChanges){
+        /*
+        if(changes['']){
+            this.loadData();
+        }
+        */
     }
 
     /* perform RETREIVE data operation. */
@@ -87,28 +110,32 @@ export class QuarantinePeriodComponent implements OnInit {
         this.SetFormState(true);
         this.modalTitle = 'Create New ' + this.pageTitle ;
         this.modalButtonTitle = 'Save' ;
+
+        /*
+        this.record = this.records.filter(x => x.idPk == 0)[0];
+        */
+        this.modalForm.reset();
+
+        ///this.modalForm.setValue(this.record);
     }  
     
     /* display an edit/update data  modal dialog */
     editData(id: number)
     {
+
+        
+
         this.DB_Operation = CRUD_Operation.update;
         this.SetFormState(true);
         this.modalTitle = 'Edit ' + this.pageTitle ;
         this.modalButtonTitle = 'Update' ;
         this.record = this.records.filter(x => x.idPk == id)[0];
 
+        console.log('[Edit] record : '+JSON.stringify(this.record));
+
         //console.log('DEBUG data ==>'+JSON.stringify(this.record));
         this.modalForm.setValue(this.record);
 
-        /* format the date into */
-        //var dateTemp = new DatePipe('en-US');
-        //this.modalForm.value.startDate = dateTemp.transform(this.modalForm.value.startDate,'yyyy-MM-dd') as string;
-        //let new_date = dateTemp.transform(this.modalForm.value.startDate,'yyyy-MM-dd');
-        //this.modalForm.setValue({startDate:this.record.startDate.getDate});
-        console.log('Start Date =>'+this.modalForm.value.startDate);
-
-        //console.log('DEBUG [modalForm]\n==>'+JSON.stringify(this.modalForm.value));
     }
 
     /* display a delete data  modal dialog */
@@ -120,5 +147,62 @@ export class QuarantinePeriodComponent implements OnInit {
         this.modalButtonTitle = 'Delete' ;
         this.record = this.records.filter(x => x.idPk == id)[0];
         this.modalForm.setValue(this.record);
+    }
+
+    onSubmit(formData: any){
+        this.status;
+
+        switch(this.DB_Operation)
+        {
+            /* perform a CREATE operation */
+            case CRUD_Operation.create: 
+
+                console.log('[modalForm] : '+JSON.stringify(formData._value));
+            /*
+            this._restAPIService.post(
+                this.baseUrl + API_url.QUARANTINE_PERIODS,
+                formData._value
+            ).subscribe(
+                data => {
+                    if(data==1) // Success operation
+                    {
+                        this.status = "Data has been created sucessfully.";
+                        
+                    }
+                    else
+                    {
+                        this.status = "There is some issue in updating data, please contact to system administrator!"
+                    }
+                },
+                error => {
+                    this.status = <any> error ;
+                }
+            ); */            
+            break;
+            
+            /* perform a UPDATE operation */
+            case CRUD_Operation.update: 
+                this._restAPIService.put(
+                    this.baseUrl + API_url.QUARANTINE_PERIODS,
+                    formData._value.idPk,
+                    formData._value
+                ).subscribe(
+                    data => {
+                        if(data==1) // Success operation
+                        {
+                            this.status = "Data has been updated sucessfully.";
+                            this.loadData();
+                        }
+                        else
+                        {
+                            this.status = "There is some issue in updating data, please contact to system administrator!"
+                        }
+                    },
+                    error => {
+                        this.status = <any> error ;
+                    }
+                );
+                break;
+        }
     }    
 }

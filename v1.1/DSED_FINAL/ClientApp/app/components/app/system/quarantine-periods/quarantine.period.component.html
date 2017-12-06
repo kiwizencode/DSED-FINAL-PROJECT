@@ -28,7 +28,7 @@
         <p *ngIf="!records"><em>&nbsp;&nbsp;Loading...</em></p>
 
         <!-- Display records in a table -->
-        <table class="table table-bordered table-striped table-responsive" *ngIf='records && records.length'>
+        <table class="table table-bordered table-striped table-responsive" *ngIf='records'>
             <!-- Table Heading -->
             <thead>
                 <tr>
@@ -65,7 +65,7 @@
                         <!-- How to center a button within a div?
                             https://stackoverflow.com/questions/7560832/how-to-center-a-button-within-a-div -->
                         <div  style="justify-content:center;align-items:center;display:flex">
-                            <input type="checkbox" value="data.closedFlag" disabled>
+                            <input type="checkbox" [checked]="data.closedFlag"  disabled>
                         </div>
                     </td>
                 </tr>
@@ -79,54 +79,49 @@
 
 <!-- data modal input form -->
 <div class="modal fade" id="inputModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="form-group"  [formGroup]="modalForm">
+    <div class="form-group" [formGroup]="modalForm">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
                 <div class="modal-header modal-header-primary">
                     <button type="button" class="close" data-dismiss="modal">×</button>
                     <h4 class="modal-title">{{modalTitle}}</h4>
                 </div>
                 <div class="modal-body">
-                    <!-- Value Input Field: Start Date -->
                     <div>
-                            <p><span>&nbsp;Start Date {{ modalForm.value.startDate}}</span></p>
-                            <!--
-                            <input id="date" type="date" class="form-control" placeholder="Enter Value" formControlName="startDate"
-                                    value="startDate">     
-                            <input type="date"  value="startDate | date:'dd/MM/yyyy'"
-                                formControlName="startDate">    
-                            <input type="date" formControlName="startDate" useValueAsDate >
-
-                              value="2017-06-01"
-
-
-                                                            <app-datepicker
-                                [(ngModel)]="modalForm.startDate"
-                                [viewFormat]="YYYY-MM-DD"
-                                [id]="startDate" ></app-datepicker>
-
-                                
-                            <div>
-                                <input matInput [matDatepicker]="startdp" 
-                                    placeholder="Moment.js datepicker" [formControl]="startDate">
-                                <mat-datepicker-toggle matSuffix [for]="startdp"></mat-datepicker-toggle>
-                                <mat-datepicker #startdp></mat-datepicker>
-                            </div>
-
-                            -->
-                            <!-- https://material.angular.io/components/datepicker/examples -->
-                            <input type="datetime-local" 
-                                    class="form-control"
-                                    formControlName="startDate"
-                                    name="startDate" >
+                        <p><span>&nbsp;Start Date</span></p>
+                        <input type="datetime-local" class="form-control" formControlName="startDate" name="startDate">
                     </div>
                     <br />
+                    <!-- Value Input Field: Start Date -->
+                    <div>
+                        <p><span>&nbsp;Description</span></p>
+                        <input type="text" class="form-control" formControlName="text" name="text">
+                    </div>
+                    <br />
+                    <!-- Value Input Field: Closed Date -->
+                    <div>
+                        <p><span>&nbsp;Closed Date</span></p>
+                        <input type="datetime-local" class="form-control" formControlName="closedDate" name="closedDate">
+                    </div>
+                    <br />
+                    <!-- Value Input Field: Closed Date -->
+                    <div>
+                        <p><span>&nbsp;Closed Flag</span></p>
+                        <!-- How to center a button within a div?
+                        https://stackoverflow.com/questions/7560832/how-to-center-a-button-within-a-div -->
+                        <div style="justify-content:center;align-items:center;display:flex">
+                            <input type="checkbox" class="form-control" formControlName="closedFlag" name="closedFlag">
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <div>
                         <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-                        <button [disabled]="modalForm.invalid" class="btn btn-primary"                          data-dismiss="modal" (click)="onSubmit(modalForm)">
-                                {{modalButtonTitle}}</button>
+                        <button [disabled]="modalForm.invalid" class="btn btn-primary"
+                                data-dismiss="modal" (click)="onSubmit(modalForm)">
+                            {{modalButtonTitle}}
+                        </button>
                     </div>
                 </div>
             </div>
