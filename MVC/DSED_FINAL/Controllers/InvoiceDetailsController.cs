@@ -49,7 +49,7 @@ namespace DSED_FINAL.Controllers
         public IActionResult Create()
         {
             ViewData["InvFk"] = new SelectList(_context.Invoice, "IdPk", "FlightNo");
-            ViewData["SpeciesFk"] = new SelectList(_context.Species, "IdPk", "Common");
+            ViewData["SpeciesFk"] = new SelectList(_context.Species.OrderBy(x => x.Scientific), "IdPk", "Scientific");
             return View();
         }
 

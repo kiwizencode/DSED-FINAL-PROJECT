@@ -25,6 +25,17 @@ namespace DSED_FINAL.Controllers
             return View(await dSEDContext.ToListAsync());
         }
 
+
+        // GET: Invoices
+        //public async Task<IActionResult> Index(int? page)
+        //{
+        //    var dSEDContext = _context.Invoice.Include(i => i.SupplierFkNavigation);
+        //    int pageNumber = page ?? 1;
+        //    int pageSize = 3;
+        //    //return View(await dSEDContext.ToListAsync());
+        //    //return PartialView(await dSEDContext.ToPageList(pageNumber, pageSize));
+        //}
+
         // GET: Invoices/Details/5
         public async Task<IActionResult> Details(int? id)
         {
