@@ -1,34 +1,53 @@
+
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
-import { NavMenuComponent } from './components/navmenu/navmenu.component';
-import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+import { NavMenuComponent } from './components/app/navmenu/navmenu.component';
+import { HomeComponent } from './components/app/home/home.component';
+import { SpeciesComponent } from './components/app/public/species/species.component';
+
+import { InvoicesComponent } from './components/app/home/invoices/invoices.component';
+
+/* Service Component */
+import { RestAPIService } from './components/app/home/services/rest.api.service';
+import { SpeciesService } from './components/app/home/services/species.service';
+
+/* Pipe Component */
+import { SpeciesFilterPipe } from './components/app/public/species/species.filter.pipe';
+
 
 @NgModule({
     declarations: [
         AppComponent,
-        NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        HomeComponent
+        NavMenuComponent, 
+        HomeComponent,      // Home Page
+        SpeciesComponent,   // MPI Species Page
+        SpeciesFilterPipe,  // Search Filter for MPI Species
+        InvoicesComponent   // Invoices Page
     ],
     imports: [
         CommonModule,
         HttpModule,
-        FormsModule,
+        FormsModule, ReactiveFormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'public/species', component: SpeciesComponent},
+            { path: 'home/invoices', component: InvoicesComponent},
             { path: '**', redirectTo: 'home' }
         ])
+    ],
+    providers:[
+        RestAPIService, 
+        SpeciesService
+    ],
+    exports: [
+        SpeciesFilterPipe
     ]
 })
 export class AppModuleShared {

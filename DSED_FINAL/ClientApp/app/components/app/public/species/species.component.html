@@ -1,0 +1,42 @@
+<div class="panel panel-primary">
+    <!-- panel-heading -->
+    <div class="panel-heading">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4"><h4>MPI Approved Species List</h4></div>
+                <div class="col-sm-7">
+                    <input type="text"
+                            name="searchText"
+                            style="width:100%;color:black;padding-left:5px"
+                            placeholder=" Search by scientific or common name"
+                            [(ngModel)]="searchText">
+                <!-- https://stackoverflow.com/questions/26446681/angular-ng-change-delay 
+                ng-model-options="{ debounce: 1000 }"
+                -->
+                </div>
+            </div>
+        </div>
+    </div>   <!--End of panel-heading -->
+    <!-- How to make panel-heading fixed with Bootstrap? -->
+    <!-- https://stackoverflow.com/questions/35418358/how-to-make-panel-heading-fixed-with-bootstrap -->
+    
+    <div class="panel-body" style="padding:0;border:0px;height:450px;overflow-y:auto">
+        <p *ngIf="!mpidata"><em>Loading...</em></p>
+        <table class='table table-bordered table-striped' *ngIf="mpidata" id="Table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Scientific Name</th>
+                    <th>Common Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of mpidata | speciesfilter : searchText ; let i = index" >
+                    <td>{{ data.idPk }}</td>
+                    <td>{{ data.scientific }}</td>
+                    <td>{{ data.common }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>    
