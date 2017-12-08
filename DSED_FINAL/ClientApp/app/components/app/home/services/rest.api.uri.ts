@@ -2,4 +2,7 @@
 export class REST_API_URI {
     public static SPIECES = 'api/Species/';
     public static QUARANTINE_PERIODS = 'api/QuarantinePeriods/';
+
+    public static SUPPLIERS = 'api/Suppliers/';
+    public static INVOICES = 'api/Invoices/';
 }

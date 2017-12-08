@@ -10,7 +10,8 @@ using DSED_FINAL.Models;
 namespace DSED_FINAL.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Suppliers")]
+    //[Route("api/Suppliers")]
+    [Route("api/[controller]")]
     public class SuppliersController : Controller
     {
         private readonly DSEDContext _context;

@@ -1,0 +1,8 @@
+<h1>{{pageTitle}}</h1>
+
+<div *ngIf="supplier">
+    <div><span>id: </span>{{supplier.idPk}}</div>
+    <div><span>name: </span>{{supplier.name}}</div>
+</div>
+
+<button (click)="goBack()">go back</button>

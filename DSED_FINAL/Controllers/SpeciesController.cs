@@ -9,7 +9,7 @@ using DSED_FINAL.Models;
 
 namespace DSED_FINAL.Controllers.System
 {
-    //[Produces("application/json")]
+    [Produces("application/json")]
     //[Route("api/Species")]
     [Route("api/[controller]")]
     public class SpeciesController : Controller

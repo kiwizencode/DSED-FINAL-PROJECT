@@ -1,6 +1,5 @@
-import { Inject} from '@angular/core';
+import { Injectable, Inject} from '@angular/core';
 
-import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
@@ -15,12 +14,12 @@ export class SpeciesService {
     data : Species[] ;
 
     constructor( 
-        @Inject('BASE_URL') baseUrl: string, 
+        @Inject('BASE_URL') private baseUrl: string, 
         private restAPIService: RestAPIService
     ){
-        restAPIService.get(baseUrl + REST_API_URI.SPIECES).subscribe( result => {
+        this.restAPIService.get(this.baseUrl + REST_API_URI.SPIECES).subscribe( result => {
             this.data = result as Species[];
-        }, error => console.error(<any>error));
+        }, error => console.error(<any>error));         
     }
 
     getSpecies() : Observable<Species[]> {
