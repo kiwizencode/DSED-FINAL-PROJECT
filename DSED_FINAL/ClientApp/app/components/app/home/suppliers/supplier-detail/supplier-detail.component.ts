@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Suppliers } from './../../models/suppliers';
-import { SuppliersService } from './../../services/suppliers.service';
+//import { SuppliersService } from './../../services/suppliers.service';
 
 @Component({
     selector: 'supplier-detail',
@@ -19,7 +19,7 @@ export class SupplierDetailComponent implements OnInit {
 
     constructor(
         private route: ActivatedRoute,
-        private suppliersService: SuppliersService,
+        //private suppliersService: SuppliersService,
         private location: Location
     ) {}
 
@@ -31,9 +31,9 @@ export class SupplierDetailComponent implements OnInit {
     getSupplier(): any {
         const val  = this.route.snapshot.paramMap.get('id');
         let id = val == null ? 0 : +val ;
-        if(id != 0)
-            this.suppliersService.getSupplier(id)
-                                .subscribe( (supplier) => this.supplier = supplier ) ;
+        //if(id != 0)
+        //    this.suppliersService.getSupplier(id)
+         //                       .subscribe( (supplier) => this.supplier = supplier ) ;
     }
 
     goBack(): void {

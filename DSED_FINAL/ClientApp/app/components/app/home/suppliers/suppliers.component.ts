@@ -1,10 +1,6 @@
-
-
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
-/* Following Angular pipe format date according rto locale rules
-   https://angular.io/api/common/DatePipe */
 import { DatePipe } from '@angular/common';
 
 import { Suppliers} from './../models/suppliers';
@@ -14,13 +10,11 @@ import { REST_API_URI } from './../services/rest.api.uri';
 import { CRUD_Operation } from './../services/db.operation.enum';
 
 @Component({
-    //selector: 'suppliers',
-    templateUrl: './suppliers.component.html',
-    styleUrls: ['./suppliers.component.css']
+    templateUrl: './suppliers.component.html'
 })
 export class SuppliersComponent implements OnInit {
 
-    pageTitle = 'Supplier';
+    pageTitle : string = 'Supplier';
     
     records : Suppliers[];
     selected: Suppliers;
