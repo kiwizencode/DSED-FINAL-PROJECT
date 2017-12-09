@@ -15,6 +15,7 @@ export class SupplierDetailComponent implements OnInit {
     pageTitle = 'Supplier Detail'
 
     @Input() supplier: Suppliers ;
+    @Input() isModal: boolean = false;
 
     constructor(
         private route: ActivatedRoute,
@@ -24,6 +25,7 @@ export class SupplierDetailComponent implements OnInit {
 
     ngOnInit(): void {
         this.getSupplier();
+        //this.isModal = false;
     }
 
     getSupplier(): any {

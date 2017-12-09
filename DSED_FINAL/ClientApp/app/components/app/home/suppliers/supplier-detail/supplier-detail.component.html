@@ -1,13 +1,36 @@
+<!--
 <h1>{{pageTitle}}</h1>
-
+-->
 <div *ngIf="supplier">
+    <!--
     <div><span>id: </span>{{supplier.idPk}}</div>
     <div><span>name: </span>{{supplier.name}}</div>
+    -->
     <div>
-        <label>name:
-        <input [(ngModel)]="supplier.name" placeholder="name"/>
+        <!-- Supplier Name --> 
+        <label>Name:&nbsp;&nbsp;
+            <input [(ngModel)]="supplier.name"/> <!-- placeholder="Supplier Name"/-->
         </label>
+        <!-- Address -->
+        <label>Address :&nbsp;&nbsp;
+            <input [(ngModel)]="supplier.address01"/> <!-- placeholder="Supplier Name"/-->
+            <input [(ngModel)]="supplier.address02"/>
+            <input [(ngModel)]="supplier.address03"/>
+        </label>
+        <!-- Phone -->
+        <label>Phone:&nbsp;&nbsp;
+            <input [(ngModel)]="supplier.phone"/> <!-- placeholder="Supplier Name"/-->
+        </label>        
+        <!-- Fax -->
+        <label>Fax:&nbsp;&nbsp;
+            <input [(ngModel)]="supplier.fax"/> <!-- placeholder="Supplier Name"/-->
+        </label>                 
     </div>    
 </div>
 
-<button (click)="goBack()">go back</button>
+<div *ngIf="isModal != true" >
+    <button  (click)="goBack()">
+    go back
+</button>
+</div>
+

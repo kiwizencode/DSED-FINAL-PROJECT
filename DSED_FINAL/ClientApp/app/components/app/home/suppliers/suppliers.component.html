@@ -23,7 +23,7 @@
             <!-- pad with empty space between div-->
             <div style="float:left;padding:5px;">&nbsp;&nbsp;</div>
             <div style="float:left">
-                <a style="font-size:22px;">{{pageTitle}} </a>
+                <span style="font-size:22px;">{{pageTitle}} </span>
             </div>
         </div>
     </div>
@@ -38,13 +38,11 @@
           <thead>
               <tr>
                   <th>Action</th>                    
-                  <!--<th>ID</th>-->
-                  <th>Id</th>
+                  <th>ID</th>
                   <th>Name</th>
-                  <!--
-                  <th>Close Date</th>
-                  <th>Flag</th>
-                  -->
+                  <th>Address</th>
+                  <th>Phone</th>
+                  <th>Fax</th>
               </tr>
           </thead>
           <tbody>
@@ -66,11 +64,14 @@
                   </td>                    
                   <td><a routerLink="/supplier-detail/{{data.idPk}}"><span>{{ data.idPk }}</span></a></td>
                   <td>{{ data.name }}</td>
-                  <!--
-                  <td>{{ data.startDate | date:'dd/MM/yyyy'}}</td>
-                  <td>{{ data.text }}</td>
+                  <!-- do not show null when concatenate string -->
+                  <!-- https://stackoverflow.com/questions/22782107/dont-show-null-when-concatenating-strings-in-angularjs  -->
+                  <td>{{ (data.address01||'') + ' ' + (data.address02||'') + ' ' + (data.address03||'') }}</td>
                   
-                  <td>{{ data.closedDate }}</td>
+                  <td>{{ data.phone }}</td>
+                  <td>{{ data.fax }}</td>
+                  <!--
+                    <td>{{ data.startDate | date:'dd/MM/yyyy'}}</td>
                   
                   <td> -->
                       <!-- How to center a button within a div?
@@ -98,15 +99,16 @@
                 <h4 class="modal-title">{{modalTitle}}</h4>
             </div>
             <div class="modal-body">
-                    <supplier-detail [supplier]="selectedSupplier"></supplier-detail>
+                <supplier-detail [supplier]="selected"
+                            [isModal]="true"></supplier-detail>
             </div>
             <div class="modal-footer">
                 <div>
                     <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-                    <button  class="btn btn-primary"
-                            data-dismiss="modal" (click)="onSubmit()">
+                    <button  class="btn btn-primary" 
+                            data-dismiss="modal" (click)="onSubmit(modalForm)">
                         {{modalButtonTitle}}
-                    </button>
+                    </button> <!-- [disabled]="modalForm.invalid" -->
                 </div>
             </div>
         </div>

@@ -1,0 +1,130 @@
+<!-- Panel Template -->
+<div class="panel panel-info">
+        <!-- Panel Heading -->
+        <div class="panel-heading text-left">
+            <!-- https://techwelkin.com/put-two-div-side-by-side -->
+            <div class="container" style="padding-left:0px;padding-right:0px">
+                <div style="float:left">
+                    <a class="btn btn-warning" data-toggle="modal" data-target="#inputModal"
+                       (click)="createData()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </div>
+                <!-- pad with empty space between div-->
+                <div style="float:left;padding:5px;">&nbsp;&nbsp;</div>
+                <div style="float:left">
+                    <a style="font-size:24px;">{{pageTitle}} </a>
+                </div>
+            </div>
+        </div>
+    
+        <!-- How to make panel-heading fixed with Bootstrap? -->
+        <!-- https://stackoverflow.com/questions/35418358/how-to-make-panel-heading-fixed-with-bootstrap -->
+    
+        <!-- Panel Body -->
+        <div class="panel-body"  style="padding:0;border:0px;height:100%;overflow-y:auto">
+    
+            <!-- Display following message when data records are loading -->
+            <p *ngIf="!alldata"><em>&nbsp;&nbsp;Loading...</em></p>
+    
+            <!-- Display records in a table -->
+            <table class="table table-bordered table-striped table-responsive">
+                <!-- Table Heading -->
+                <thead>
+                    <tr>
+                        <th>Action</th>                    
+                        <!--<th>ID</th>-->
+                        <th>Start Date</th>
+                        <th>Comments</th>
+                        <th>Close Date</th>
+                        <th>Flag</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of alldata" >
+                        <!-- set the column to just fit contents-->
+                        <td style="width:1%;white-space:nowrap">
+                            <div>
+                                <!-- Edit Button -->
+                                <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#inputModal"
+                                    (click)="editData(data.idPk)">
+                                    <span class='glyphicon glyphicon-pencil'></span>
+                                </a>
+                                <!-- Delete Button --> 
+                                <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#inputModal"
+                                    (click)="deleteData(data.idPk)">
+                                    <span class='glyphicon glyphicon-trash'></span>
+                                </a>
+                            </div>
+                        </td>                    
+                        <!--<td>{{ data.idPk }}</td>-->
+                        <td>{{ data.startDate | date:'dd/MM/yyyy'}}</td>
+                        <td>{{ data.text }}</td>
+                        <td>{{ data.closedDate }}</td>
+                        <td>
+                            <!-- How to center a button within a div?
+                                https://stackoverflow.com/questions/7560832/how-to-center-a-button-within-a-div -->
+                            <div  style="justify-content:center;align-items:center;display:flex">
+                                <input type="checkbox" [checked]="data.closedFlag"  disabled>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- Panel Footer -->
+        <div class="panel-footer" >
+        </div>
+    </div>
+    
+    <!-- data modal input form -->
+    <div class="modal fade" id="inputModal" role="dialog">
+        <div class="form-group" [formGroup]="modalForm">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header modal-header-primary">
+                        <button type="button" class="close" data-dismiss="modal">×</button>
+                        <h4 class="modal-title">{{modalTitle}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <p><span>&nbsp;Start Date</span></p>
+                            <input type="datetime-local" class="form-control" formControlName="startDate" name="startDate">
+                        </div>
+                        <br />
+                        <!-- Value Input Field: Start Date -->
+                        <div>
+                            <p><span>&nbsp;Description</span></p>
+                            <input type="text" class="form-control" formControlName="text" name="text">
+                        </div>
+                        <br />
+                        <!-- Value Input Field: Closed Date -->
+                        <div>
+                            <p><span>&nbsp;Closed Date</span></p>
+                            <input type="datetime-local" class="form-control" formControlName="closedDate" name="closedDate">
+                        </div>
+                        <br />
+                        <!-- Value Input Field: Closed Date -->
+                        <div>
+                            <p><span>&nbsp;Closed Flag</span></p>
+                            <!-- How to center a button within a div?
+                            https://stackoverflow.com/questions/7560832/how-to-center-a-button-within-a-div -->
+                            <div style="justify-content:center;align-items:center;display:flex">
+                                <input type="checkbox" class="form-control" formControlName="closedFlag" name="closedFlag">
+                            </div>
+                        </div>
+    
+                    </div>
+                    <div class="modal-footer">
+                        <div>
+                            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                            <button [disabled]="modalForm.invalid" class="btn btn-primary"
+                                    data-dismiss="modal" (click)="onSubmit(modalForm)">
+                                {{modalButtonTitle}}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
