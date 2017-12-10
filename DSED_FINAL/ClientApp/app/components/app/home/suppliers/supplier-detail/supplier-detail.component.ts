@@ -1,42 +1,89 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Suppliers } from './../../models/suppliers';
-//import { SuppliersService } from './../../services/suppliers.service';
+
+/* 
+    http://blog.rangle.io/observables-and-reactive-programming-in-angular-2/
+    http://diveshblog.weebly.com/blog/angular-2-passing-data-from-child-to-parent-component-output
+*/
 
 @Component({
     selector: 'supplier-detail',
-    templateUrl: './supplier-detail.component.html',
-    styleUrls: ['./supplier-detail.component.css']
+    templateUrl: './supplier-detail.component.html'
 })
 export class SupplierDetailComponent implements OnInit {
+    
+    /* variables to be passed in from calling component. */
+    @Input() DialogCaption : string ;
+    @Input() ButtonCaption : string ;
+    
+    //@Input() 
+    modalForm : FormGroup ;
+    
+    /* https://angular.io/guide/component-interaction */
+    private _data : Suppliers ;
+    @Input() 
+        /* input property setter */
+        set data(data : Suppliers){
+            // Debug
+            //console.log("set data ==> " + JSON.stringify(data)) ;
 
-    pageTitle = 'Supplier Detail'
+            this._data = data ;
 
-    @Input() supplier: Suppliers ;
-    @Input() isModal: boolean = false;
+            this.initialiseForm();
+        }
+        /* input property getter 
+        get data() : Suppliers {
+            this._data = this.modalForm.value
+            return this._data ;
+        } */
 
-    constructor(
-        private route: ActivatedRoute,
-        //private suppliersService: SuppliersService,
-        private location: Location
-    ) {}
+    /* provide a way to pass parameter back to calling component. */
+    /* create an EventEmitter and decorate it as an Output coming from current component. */
+    /* All @Outputs are EventEmitters and 
+       the @Output decorator exposes an event that parents can attach listeners to in its template. */
+    @Output() Click = new EventEmitter();
+
+    constructor(private formbuilder: FormBuilder) {}
 
     ngOnInit(): void {
-        this.getSupplier();
-        //this.isModal = false;
-    }
+        
+        this.DialogCaption = 'N/D' ;  // Not Defined
+        this.ButtonCaption = 'N/D' ; // Not Defined
 
-    getSupplier(): any {
-        const val  = this.route.snapshot.paramMap.get('id');
-        let id = val == null ? 0 : +val ;
-        //if(id != 0)
-        //    this.suppliersService.getSupplier(id)
-         //                       .subscribe( (supplier) => this.supplier = supplier ) ;
-    }
+        this.initialiseForm();
 
-    goBack(): void {
-        this.location.back();
-    }    
+    }
+   
+    /* Initialise Form Control variables to be used for data entry */
+    initialiseForm() : void {
+        /* */
+        this.modalForm = this.formbuilder.group({
+            idPk: [""],
+            name: ["", Validators.required],
+            address01: [""],
+            address02: [""],
+            address03: [""],
+            phone:[""],
+            fax:[""],
+            invoice:[""]
+        });
+
+        if(this._data  && this._data.idPk > 0 )
+            this.modalForm.setValue(this._data);
+        else
+            this.modalForm.reset();     
+
+    }  
+    
+    /* Trigger the following code when user hit 'Save' or 'Update' or 'Delete' button */
+    onSubmit() : void {
+
+        /* The following line is used to emit (broadcast the event) who ever want to listen, 
+           no data is passed back but we want the parent (component) that is listening to the event 
+           and handled by event handler onSubmit() as show in following:
+           (Click)="onSubmit()" */
+        this.Click.emit(this.modalForm.value);
+    }
 }

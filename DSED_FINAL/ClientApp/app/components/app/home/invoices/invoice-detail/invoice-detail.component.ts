@@ -1,14 +1,15 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
     selector: 'inv-detail',
     templateUrl: './invoice-detail.component.html'
 })
 
-//,styleUrls: ['./invoice-detail.component.css']
 export class InvoiceDetailComponent implements OnInit {
 
+    /* variables to be passed in from other components */
     @Input() modalFormTitle : string ;
     @Input() modalButtonTitle : string ;
     @Input() modalForm : FormGroup ;
@@ -19,19 +20,25 @@ export class InvoiceDetailComponent implements OnInit {
     
     ngOnInit(): void {
 
-        this.modalFormTitle = 'N/D' ;  // Not Defined
-        this.modalButtonTitle = 'N/D' ; // Not Defined
+        this.initialiseForm();
+    }
+
+    /* Initialise Form Control variables to be used for data entry */
+    initialiseForm(): void {
 
         this.modalForm = this.formbuilder.group({
             idPk: [""],
             date: ["", Validators.required],
             doa: [""],
-            flightNo : ["", Validators.required],
+            flightNo: ["", Validators.required],
             total: [0, Validators.required],
             supplierFk: [""],
-            supplierFkNavigation:[""],
+            supplierFkNavigation: [""],
             invoiceDetail: [""]
         });
+
+        this.modalFormTitle = 'N/D';  // Not Defined
+        this.modalButtonTitle = 'N/D'; // Not Defined
     }
 
     onSubmit() : void {

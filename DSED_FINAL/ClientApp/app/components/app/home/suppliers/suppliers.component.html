@@ -1,27 +1,20 @@
-<!--
-<h1>Suppliers Page</h1> 
-<ul class="suppliers">
-  <li *ngFor="let supplier of suppliers">
-    <a routerLink="/detail/{{supplier.idPk}}">
-      <span class="badge">{{supplier.idPk}}</span> {{supplier.name}}
-    </a>
-  </li>
-</ul>-->
-
 <!-- Panel Template -->
 <div class="panel panel-info">
     <!-- Panel Heading -->
     <div class="panel-heading text-left">
-          <!-- https://techwelkin.com/put-two-div-side-by-side -->
-          <div class="container" style="padding-left:0px;padding-right:0px">
+        <!-- https://techwelkin.com/put-two-div-side-by-side -->
+        <!-- Display a plus sign and page title on the left corner of the panel heading -->
+        <div class="container" style="padding-left:0px;padding-right:0px">
             <div style="float:left">
-                <a class="btn btn-warning btn-ms" data-toggle="modal" data-target="#inputModal"
-                  (click)="createData()">
+                <a class="btn btn-warning btn-ms" (click)="createData()"
+                    data-toggle="modal" data-target="#inputModal">
+                    <!-- Display plus sign symbol as Create icon -->
                     <span class="glyphicon glyphicon-plus"></span>
                 </a>
             </div>
             <!-- pad with empty space between div-->
             <div style="float:left;padding:5px;">&nbsp;&nbsp;</div>
+            <!-- Display the title of the page -->
             <div style="float:left">
                 <span style="font-size:22px;">{{pageTitle}} </span>
             </div>
@@ -32,8 +25,12 @@
   
     <!-- Panel Body -->
     <div class="panel-body" style="padding:0;border:0px;height:100%;overflow-y:auto">
+
+        <!-- Display the message 'Loading' on the page while waiting for data to be sent from back-end -->
+        <p *ngIf="!alldata"><em>&nbsp;&nbsp;Loading...</em></p>
+
         <!-- Display records in a table -->
-        <table class="table table-bordered table-striped table-responsive"><!-- *ngIf='records'-->
+        <table class="table table-bordered table-striped table-responsive" *ngIf='alldata'>
           <!-- Table Heading -->
           <thead>
               <tr>
@@ -45,72 +42,47 @@
                   <th>Fax</th>
               </tr>
           </thead>
+          <!-- Table Body -->
           <tbody>
-              <tr *ngFor="let data of records" >
+              <tr *ngFor="let data of alldata" >
+                  <!-- Display Edit / Delete buttons on the 1st column of the table -->
                   <!-- set the column to just fit contents-->
                   <td style="width:1%;white-space:nowrap">
                       <div>
                           <!-- Edit Button -->
-                          <a class="btn btn-success btn-xs" data-toggle="modal" data-target="#inputModal"
-                              (click)="editData(data)">
-                              <span class='glyphicon glyphicon-pencil'></span>
+                          <a class="btn btn-success btn-xs" (click)="editData(data)"
+                                data-toggle="modal" data-target="#inputModal">
+                                <!-- Display pencil symbol as Edit icon -->
+                                <span class='glyphicon glyphicon-pencil'></span>
                           </a>
                           <!-- Delete Button --> 
-                          <a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#inputModal"
-                              (click)="deleteData(data.idPk)">
-                              <span class='glyphicon glyphicon-trash'></span>
+                          <a class="btn btn-danger btn-xs" (click)="deleteData(data)"
+                                data-toggle="modal" data-target="#inputModal">
+                                <!-- Display trash can symbol as Delete icon -->
+                                <span class='glyphicon glyphicon-trash'></span>
                           </a>
                       </div>
                   </td>                    
-                  <td><a routerLink="/supplier-detail/{{data.idPk}}"><span>{{ data.idPk }}</span></a></td>
+                  <td>{{ data.idPk }}</td>
                   <td>{{ data.name }}</td>
                   <!-- do not show null when concatenate string -->
                   <!-- https://stackoverflow.com/questions/22782107/dont-show-null-when-concatenating-strings-in-angularjs  -->
                   <td>{{ (data.address01||'') + ' ' + (data.address02||'') + ' ' + (data.address03||'') }}</td>
-                  
                   <td>{{ data.phone }}</td>
                   <td>{{ data.fax }}</td>
-                  <!--
-                    <td>{{ data.startDate | date:'dd/MM/yyyy'}}</td>
-                  
-                  <td> -->
-                      <!-- How to center a button within a div?
-                          https://stackoverflow.com/questions/7560832/how-to-center-a-button-within-a-div -->
-                      <!--
-                      <div  style="justify-content:center;align-items:center;display:flex">
-                          <input type="checkbox" [checked]="data.closedFlag"  disabled>
-                      </div>
-                  </td> -->
               </tr>
           </tbody>
       </table>
     </div>
-    <!-- Panel Footer -->
-    <div class="panel-footer">
-
-    </div>
+    <!-- Panel Footer 
+    <div class="panel-footer"></div> -->
 </div>
 <!-- data modal input form -->
 <div class="modal fade" id="inputModal" role="dialog">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header modal-header-primary">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h4 class="modal-title">{{modalTitle}}</h4>
-            </div>
-            <div class="modal-body">
-                <supplier-detail [supplier]="selected"
-                            [isModal]="true"></supplier-detail>
-            </div>
-            <div class="modal-footer">
-                <div>
-                    <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-                    <button  class="btn btn-primary" 
-                            data-dismiss="modal" (click)="onSubmit(modalForm)">
-                        {{modalButtonTitle}}
-                    </button> <!-- [disabled]="modalForm.invalid" -->
-                </div>
-            </div>
-        </div>
-    </div>
+    <supplier-detail
+        [DialogCaption]="DialogCaption"
+        [ButtonCaption]="ButtonCaption"
+        [data]="selected"
+        (Click)="onSubmit($event)"></supplier-detail>
+        <!-- [modalForm]="modalForm" -->
 </div>

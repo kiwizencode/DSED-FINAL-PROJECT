@@ -24,7 +24,6 @@ import { QuarantinePeriodComponent } from './components/app/home/quarantine-peri
 /* Service Component */
 import { RestAPIService } from './components/app/home/services/rest.api.service';
 
-
 @NgModule({
     declarations: [
         AppComponent,

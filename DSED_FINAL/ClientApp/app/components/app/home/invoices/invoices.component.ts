@@ -1,8 +1,5 @@
-
-
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-
 import { DatePipe } from '@angular/common';
 
 import { Invoices } from './../models/invoices';
@@ -23,14 +20,17 @@ import { Observable } from 'rxjs/Observable';
 //styleUrls: ['./invoices.component.css']
 
 export class InvoicesComponent implements OnInit {
+    /* page title */
     pageTitle:string ='Invoice' ;
 
-    /* Invoice Data Model */
+    /* variables to store data model */
     alldata : Invoices[] ;
-    data : Invoices ;
+    data: Invoices;
 
+    /* CRUD operation indicator */
     DB_Operation: CRUD_Operation ;
 
+    /* Form Control variables for invoice detail data entry */
     modalForm: FormGroup;
     modalFormTitle: string;
     modalButtonTitle: string;
@@ -47,11 +47,9 @@ export class InvoicesComponent implements OnInit {
 
         this.getInvoices();
 
-        this.modalFormTitle = 'N/D' ;  // Not Defined
-        this.modalButtonTitle = 'N/D' ; // Not Defined
-
     }
 
+    /* Initialise Form Control variables to be used for invoice detail data entry */
     initialiseForm() : void {
         /* Initialize input data form */
         this.modalForm = this.formbuilder.group({
@@ -64,59 +62,70 @@ export class InvoicesComponent implements OnInit {
             supplierFkNavigation:[""],
             invoiceDetail: [""]
         });
+        this.modalFormTitle = 'N/D';  // Not Defined
+        this.modalButtonTitle = 'N/D'; // Not Defined
     }
 
-    /* get all invoices from database. */
+    /* (R)etreive Operation: get all invoices records. */
     getInvoices() : void {
-        this.restAPIService.get(this.baseUrl + REST_API_URI.INVOICES).subscribe( result => {
-            this.alldata = result as Invoices[];
-        }, error => console.error(<any>error));        
+        this.restAPIService.get(this.baseUrl + REST_API_URI.INVOICES).subscribe(
+            result => this.alldata = result, error => console.error(<any>error));        
     }
 
-    SetFormState(isEnable: boolean)
-    {
+    /* Method to set whether the Form Control is editable. */
+    SetFormState(isEnable: boolean) : void {
         isEnable ? this.modalForm.enable() : this.modalForm.disable();
     }
 
-    /* display a create data modal dialog */
-    createData()
-    {
+    /* Create Invoice */
+    createData(): void {
+        /* set to (C)reate DB Operation */
         this.DB_Operation = CRUD_Operation.create;
 
+        /* setup detail page's variables */
         this.modalFormTitle = 'Create New ' + this.pageTitle ;
         this.modalButtonTitle = 'Save' ;
 
+        /* reset the Form Control variables */
         this.modalForm.reset();
+
+        /* enable the Form Control for user to perform data entry*/
         this.SetFormState(true);
+
         this.isSubmit = false ;
     }
 
-    /* display an edit/update data  modal dialog */
-    editData(data:any)
-    {
+    /* Edit Invoice */
+    editData(data: any): void {
+        /* set to (U)pdate DB Operation */
         this.DB_Operation = CRUD_Operation.update;
-        
+
+        /* setup detail page's variables */
         this.modalFormTitle = 'Edit ' + this.pageTitle ;
         this.modalButtonTitle = 'Update' ;
 
-        //this.data = this.alldata.filter(x => x.idPk == id)[0];
+        /* set value of the Form Control variables to data's value. */
         this.modalForm.setValue(data);
+
+        /* enable the Form Control for user to perform data entry*/
         this.SetFormState(true);
+
         this.isSubmit = false ;
-
-        //console.log('[Create] : '+JSON.stringify(this.data));
-
     }    
-    /* display a delete data  modal dialog */
-    deleteData(data:any)
-    {
+
+    /* Delete Invoice */
+    deleteData(data: any): void {
+        /* set to (D)elete DB Operation */
         this.DB_Operation = CRUD_Operation.delete;
-        
+
+        /* setup detail page's variables */
         this.modalFormTitle = 'Confirm to Delete?' ;
         this.modalButtonTitle = 'Delete' ;
 
-        //this.data = this.alldata.filter(x => x.idPk == id)[0];
+        /* set value of the Form Control variables to data's value. */
         this.modalForm.setValue(data);
+
+        /* diable the Form Control */
         this.SetFormState(false);
 
         this.isSubmit = false ;
