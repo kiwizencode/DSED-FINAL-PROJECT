@@ -25,7 +25,20 @@ namespace DSED_FINAL.Controllers
         [HttpGet]
         public IEnumerable<Invoice> GetInvoice()
         {
-            return _context.Invoice;
+            //var invoices = _context.Invoice.Include(inv => inv.)
+            var invoices = _context.Invoice.AsNoTracking();
+            var suppliers = _context.Supplier.AsNoTracking();
+
+            List<Invoice> inv_list = new List<Invoice>();
+            foreach(var inv in invoices)
+            {
+                Supplier supplier = suppliers.SingleOrDefault(m => m.IdPk == inv.SupplierFk);
+                inv.SupplierFkNavigation = supplier;
+                inv_list.Add(inv);
+            }
+
+            return inv_list; 
+            //return _context.Invoice.AsNoTracking();   
         }
 
         // GET: api/Invoices/5

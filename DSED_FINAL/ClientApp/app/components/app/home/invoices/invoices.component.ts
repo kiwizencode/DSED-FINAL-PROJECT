@@ -1,5 +1,4 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 import { Invoices } from './../models/invoices';
@@ -16,65 +15,43 @@ import { Observable } from 'rxjs/Observable';
     selector: 'invoices',
     templateUrl: './invoices.component.html'
 })
-// ,
-//styleUrls: ['./invoices.component.css']
-
 export class InvoicesComponent implements OnInit {
     /* page title */
     pageTitle:string ='Invoice' ;
 
     /* variables to store data model */
     alldata : Invoices[] ;
-    data: Invoices;
+    selected : Invoices ;
 
     /* CRUD operation indicator */
     DB_Operation: CRUD_Operation ;
 
     /* Form Control variables for invoice detail data entry */
-    modalForm: FormGroup;
-    modalFormTitle: string;
-    modalButtonTitle: string;
+    DialogCaption: string;
+    ButtonCaption: string;
 
-    isSubmit : boolean ;
-        
     constructor( @Inject('BASE_URL') private baseUrl: string,
-                    private restAPIService: RestAPIService,
-                    private formbuilder: FormBuilder ) {}    
+                    private restAPIService: RestAPIService) {}    
     
     ngOnInit(): void {
 
         this.initialiseForm();
 
-        this.getInvoices();
+        this.loadData();
 
     }
 
     /* Initialise Form Control variables to be used for invoice detail data entry */
     initialiseForm() : void {
-        /* Initialize input data form */
-        this.modalForm = this.formbuilder.group({
-            idPk: [""],
-            date: ["", Validators.required],
-            doa: [""],
-            flightNo : ["", Validators.required],
-            total: [0, Validators.required],
-            supplierFk: [""],
-            supplierFkNavigation:[""],
-            invoiceDetail: [""]
-        });
-        this.modalFormTitle = 'N/D';  // Not Defined
-        this.modalButtonTitle = 'N/D'; // Not Defined
+
+        this.DialogCaption = 'N/D';  // Not Defined
+        this.ButtonCaption = 'N/D'; // Not Defined
     }
 
     /* (R)etreive Operation: get all invoices records. */
-    getInvoices() : void {
+    loadData() : void {
         this.restAPIService.get(this.baseUrl + REST_API_URI.INVOICES).subscribe(
             result => this.alldata = result, error => console.error(<any>error));        
-    }
-
-    /* Method to set whether the Form Control is editable. */
-    SetFormState(isEnable: boolean) : void {
-        isEnable ? this.modalForm.enable() : this.modalForm.disable();
     }
 
     /* Create Invoice */
@@ -83,16 +60,19 @@ export class InvoicesComponent implements OnInit {
         this.DB_Operation = CRUD_Operation.create;
 
         /* setup detail page's variables */
-        this.modalFormTitle = 'Create New ' + this.pageTitle ;
-        this.modalButtonTitle = 'Save' ;
+        this.DialogCaption = 'Create New ' + this.pageTitle ;
+        this.ButtonCaption = 'Save' ;
 
-        /* reset the Form Control variables */
-        this.modalForm.reset();
-
-        /* enable the Form Control for user to perform data entry*/
-        this.SetFormState(true);
-
-        this.isSubmit = false ;
+        /* Initialize a Invoice class */
+        this.selected =  {
+            idPk:-1,
+            date: new Date,
+            doa: new Date,
+            flightNo: '',
+            total: 0,
+            supplierFk:-1,
+            supplierFkNavigation:null
+        }
     }
 
     /* Edit Invoice */
@@ -101,16 +81,11 @@ export class InvoicesComponent implements OnInit {
         this.DB_Operation = CRUD_Operation.update;
 
         /* setup detail page's variables */
-        this.modalFormTitle = 'Edit ' + this.pageTitle ;
-        this.modalButtonTitle = 'Update' ;
+        this.DialogCaption = 'Edit ' + this.pageTitle ;
+        this.ButtonCaption = 'Update' ;
 
-        /* set value of the Form Control variables to data's value. */
-        this.modalForm.setValue(data);
-
-        /* enable the Form Control for user to perform data entry*/
-        this.SetFormState(true);
-
-        this.isSubmit = false ;
+        /* set to selected record */
+        this.selected = data ;
     }    
 
     /* Delete Invoice */
@@ -119,20 +94,71 @@ export class InvoicesComponent implements OnInit {
         this.DB_Operation = CRUD_Operation.delete;
 
         /* setup detail page's variables */
-        this.modalFormTitle = 'Confirm to Delete?' ;
-        this.modalButtonTitle = 'Delete' ;
+        this.DialogCaption = 'Confirm to Delete?' ;
+        this.ButtonCaption = 'Delete' ;
 
-        /* set value of the Form Control variables to data's value. */
-        this.modalForm.setValue(data);
-
-        /* diable the Form Control */
-        this.SetFormState(false);
-
-        this.isSubmit = false ;
+        /* set to selected record */
+        this.selected = data ;
     }
 
-    onSubmit() : void
-    {
-        console.log("[onSubmit !!!] : " + this.DB_Operation);
+    onSubmit(formData:any){
+        // DEBUG
+        // console.log("[onSubmit !!!] : " + this.DB_Operation);
+ 
+        switch(this.DB_Operation)
+        {
+            /* perform a (C)reate operation */
+            case CRUD_Operation.create: 
+            
+                formData.idPk = 0 ;
+                console.log('[Create] : '+JSON.stringify(formData));
+
+                this.restAPIService.post(
+                    this.baseUrl + REST_API_URI.INVOICES,
+                    formData
+                ).subscribe(
+                    data => {
+
+                        this.loadData();
+                    },
+                    error => console.error(<any>error) 
+                );        
+                break;            
+        
+            /* perform a (U)pdate operation */
+            case CRUD_Operation.update: 
+        
+                console.log('[Update] : '+JSON.stringify(formData));
+
+                this.restAPIService.put(
+                    this.baseUrl + REST_API_URI.INVOICES,
+                    formData.idPk,
+                    formData
+                ).subscribe(
+                    data => {
+                        //console.log('[Result] : '+JSON.stringify(response));
+                        this.loadData();
+                    },
+                    error => console.error(<any>error)
+                );
+                break;
+            
+            /* perform a (D)elete operation */
+            case CRUD_Operation.delete: 
+
+                console.log('[Delete] : '+JSON.stringify(formData));
+
+                this.restAPIService.delete(
+                    this.baseUrl + REST_API_URI.INVOICES,
+                    formData.idPk
+                ).subscribe(
+                    data => {
+                        this.loadData();
+                    },
+                    error => console.error(<any>error)
+                );            
+
+                break;      
+        }    
     }
 }

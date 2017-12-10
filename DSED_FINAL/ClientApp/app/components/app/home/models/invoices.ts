@@ -2,7 +2,8 @@ export interface Invoices {
     idPk: number,
     date: Date,
     doa?: Date,
-    flight: string,
+    flightNo: string,
     total: number,
-    supplierFk: number
+    supplierFk: number,
+    supplierFkNavigation?:any
 }

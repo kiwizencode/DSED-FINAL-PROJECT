@@ -18,9 +18,6 @@ export class SupplierDetailComponent implements OnInit {
     @Input() DialogCaption : string ;
     @Input() ButtonCaption : string ;
     
-    //@Input() 
-    modalForm : FormGroup ;
-    
     /* https://angular.io/guide/component-interaction */
     private _data : Suppliers ;
     @Input() 
@@ -45,6 +42,8 @@ export class SupplierDetailComponent implements OnInit {
        the @Output decorator exposes an event that parents can attach listeners to in its template. */
     @Output() Click = new EventEmitter();
 
+    modalForm: FormGroup;
+
     constructor(private formbuilder: FormBuilder) {}
 
     ngOnInit(): void {
@@ -53,7 +52,6 @@ export class SupplierDetailComponent implements OnInit {
         this.ButtonCaption = 'N/D' ; // Not Defined
 
         this.initialiseForm();
-
     }
    
     /* Initialise Form Control variables to be used for data entry */
@@ -70,16 +68,17 @@ export class SupplierDetailComponent implements OnInit {
             invoice:[""]
         });
 
-        if(this._data  && this._data.idPk > 0 )
+        /* Only set value into control form when (U)pdate operation 
+           i.e this._data is not null and idPk > 0 */
+        if (this._data && this._data.idPk > 0)
             this.modalForm.setValue(this._data);
         else
-            this.modalForm.reset();     
-
+            /* Else for (C)reate operation and other operation, reset the form */
+            this.modalForm.reset();  
     }  
     
     /* Trigger the following code when user hit 'Save' or 'Update' or 'Delete' button */
     onSubmit() : void {
-
         /* The following line is used to emit (broadcast the event) who ever want to listen, 
            no data is passed back but we want the parent (component) that is listening to the event 
            and handled by event handler onSubmit() as show in following:

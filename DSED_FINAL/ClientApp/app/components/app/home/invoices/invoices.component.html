@@ -24,13 +24,16 @@
     <!-- https://stackoverflow.com/questions/35418358/how-to-make-panel-heading-fixed-with-bootstrap -->
     <!-- Panel Body -->
     <div class="panel-body" style="padding:0;border:0px;height:100%;overflow-y:auto">
+        
+        <!-- Display the message 'Loading' on the page while waiting for data to be sent from back-end -->
+        <p *ngIf="!alldata"><em>&nbsp;&nbsp;Loading...</em></p>
+
         <!-- Display records in a table -->
-        <table class="table table-bordered table-striped table-responsive" *ngIf='alldata'-->
+        <table class="table table-bordered table-striped table-responsive" *ngIf='alldata'>
             <!-- Table Heading -->
             <thead>
                 <tr>
                     <th>Action</th>                    
-                    <!--<th>ID</th>-->
                     <th>ID</th>
                     <th>Date</th>
                     <th>Supplier Name</th>
@@ -51,22 +54,22 @@
                         <div>
                             <!-- Edit Button -->
                             <a class="btn btn-success btn-xs" (click)="editData(data)"
-                               data-toggle="modal" data-target="#inputModal">
+                                data-toggle="modal" data-target="#inputModal">
                                 <!-- Display pencil symbol as Edit icon -->
                                 <span class='glyphicon glyphicon-pencil'></span>
                             </a>
                             <!-- Delete Button -->
-                            <a class="btn btn-danger btn-xs" (click)="deleteData(data.idPk)"
-                               data-toggle="modal" data-target="#inputModal">
+                            <a class="btn btn-danger btn-xs" (click)="deleteData(data)"
+                                data-toggle="modal" data-target="#inputModal">
                                 <!-- Display trash can symbol as Delete icon -->
                                 <span class='glyphicon glyphicon-trash'></span>
                             </a>
                         </div>
-                    </td>                    
-                    <td><span>{{ data.idPk }}</span></td>
-                    <!-- Format the start using Angular Date Pipe --> 
+                    </td>
+                    <!-- Format the following date using Angular Date Pipe -->                    
+                    <td>{{ data.idPk}}</td>
                     <td>{{ data.date | date:'dd/MM/yyyy'}}</td>
-                    <td></td>
+                    <td>{{ data.supplierFkNavigation?.name }}</td>
                     <td>{{ data.flightNo }}</td>
                     <td>{{ data.total }}</td>
                     <!--
@@ -90,10 +93,10 @@
 
 <!-- data modal input form -->
 <div class="modal fade" id="inputModal" role="dialog">
-    <inv-detail [modalFormTitle]="modalFormTitle"
-                [modalButtonTitle]="modalButtonTitle"
-                [modalForm]="modalForm"
-                (Click)="onSubmit()"></inv-detail>
+    <inv-detail [DialogCaption]="DialogCaption"
+                [ButtonCaption]="ButtonCaption"
+                [data]="selected"
+                (Click)="onSubmit($event)"></inv-detail>
 </div>
 
 

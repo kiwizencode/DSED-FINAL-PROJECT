@@ -1,7 +1,5 @@
-
 import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-
 import { DatePipe } from '@angular/common';
 
 import { Suppliers} from './../models/suppliers';
@@ -15,6 +13,7 @@ import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
+    selector: 'suppliers',
     templateUrl: './suppliers.component.html'
 })
 export class SuppliersComponent implements OnInit {
@@ -23,10 +22,10 @@ export class SuppliersComponent implements OnInit {
 
     /* variables to store data model */
     alldata : Suppliers[];
-    selected: Suppliers;
+    selected : Suppliers;
 
     /* CRUD operation indicator */
-    DB_Operation: CRUD_Operation ;
+    DB_Operation: CRUD_Operation;
     
     /* Form Control variables for supplier detail data entry */
     DialogCaption: string;
@@ -56,7 +55,6 @@ export class SuppliersComponent implements OnInit {
             result => this.alldata = result , error => console.error(<any>error));
     }
 
-
     /* Create Supplier */
     createData() : void {
         /* set to (C)reate DB Operation */
@@ -75,11 +73,6 @@ export class SuppliersComponent implements OnInit {
             phone:'',
             fax:''
         } 
-        /* reset the Form Control variables */
-        //this.modalForm.reset();
-        
-        /* enable the Form Control for user to perform data entry*/
-        //this.SetFormState(true);
     }
 
     /* Edit Supplier */
@@ -93,7 +86,8 @@ export class SuppliersComponent implements OnInit {
         /* setup detail page's variables */
         this.DialogCaption = 'Edit ' + this.pageTitle ;
         this.ButtonCaption = 'Update' ;
-        
+
+        /* set to selected record */
         this.selected = data ;
     }
 
@@ -106,8 +100,8 @@ export class SuppliersComponent implements OnInit {
         this.DialogCaption = 'Confirm to Delete?' ;
         this.ButtonCaption = 'Delete' ;
 
-        this.selected = data ;
-
+        /* set to selected record */
+        this.selected = data;
     }
 
     onSubmit(formData:any){
@@ -116,7 +110,7 @@ export class SuppliersComponent implements OnInit {
  
         switch(this.DB_Operation)
         {
-            /* perform a CREATE operation */
+            /* perform a (C)reate operation */
             case CRUD_Operation.create: 
             
                 formData.idPk = 0 ;
@@ -134,7 +128,7 @@ export class SuppliersComponent implements OnInit {
                 );        
                 break;            
         
-            /* perform a UPDATE operation */
+            /* perform a (U)pdate operation */
             case CRUD_Operation.update: 
         
                 console.log('[Update] : '+JSON.stringify(formData));
@@ -151,7 +145,8 @@ export class SuppliersComponent implements OnInit {
                     error => console.error(<any>error)
                 );
                 break;
-                    /* perform a DELETE operation */
+
+            /* perform a (D)elete operation */
             case CRUD_Operation.delete: 
 
                 console.log('[Delete] : '+JSON.stringify(formData));
