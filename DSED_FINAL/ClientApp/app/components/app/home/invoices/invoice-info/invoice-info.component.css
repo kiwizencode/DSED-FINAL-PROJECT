@@ -4,8 +4,8 @@
 
 .column {
     float: left;
-    width: 33.33%;
-    padding-left: 5px;
+    /*width: 33.33%;*/
+    padding-left: 15px;
     padding-right: 5px;
 }
 
@@ -15,4 +15,7 @@
     display: table;
     clear: both;
 }
-
+/*
+.datetime-local {
+    min-width: 170px;
+}*/

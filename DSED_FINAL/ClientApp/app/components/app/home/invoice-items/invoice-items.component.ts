@@ -1,0 +1,99 @@
+
+import { Component, OnInit, Inject, Input, ValueProvider } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { Invoices } from './../models/invoices';
+import { InvoiceDetails } from './../models/invoices-item-detail';
+
+import { RestAPIService } from './../../home/services/rest.api.service';
+import { REST_API_URI } from './../services/rest.api.uri';
+import { CRUD_Operation } from './../services/db.operation.enum';
+
+@Component({
+    selector: 'inv-items',
+    templateUrl: './invoice-items.component.html'
+})
+export class InvoiceItemsComponent implements OnInit {
+    /* page title */
+    pageTitle:string ="Invoice Items";
+
+    invoiceForm: FormGroup ;
+
+    invoices: Invoices [];
+    selectedInvoice: Invoices ;
+    alldata: InvoiceDetails [];
+    data: InvoiceDetails ;
+
+    isChildComponent: boolean;
+    isCreatedEnabled: boolean;
+
+    /* CRUD operation indicator */
+    DB_Operation: CRUD_Operation;
+
+    constructor( @Inject('BASE_URL') private baseUrl: string,
+                    private restAPIService: RestAPIService,
+                    private formbuilder: FormBuilder) {}
+
+    ngOnInit(): void {
+        this.loadInvoices();
+        this.loadData();
+        this.isChildComponent = false;
+        this.isCreatedEnabled = false;
+    }
+
+    /* Initialise Form Control variables to be used for data entry */
+    initialiseForm(): void {
+        
+        this.invoiceForm = this.formbuilder.group({
+            idPk: [""],
+            date: ["", Validators.required],
+            doa: [""],
+            flightNo: ["", Validators.required],
+            total: [0, Validators.required],
+            supplierFk: [""],
+            supplierFkNavigation: [""],
+            invoiceDetail: [""]
+        });
+ 
+    }
+
+    /* (R)etreive Operation: get all invoices records. */
+    loadInvoices(): void {
+        this.restAPIService.get(this.baseUrl + REST_API_URI.INVOICES).subscribe( 
+            result => this.invoices = result, error => console.error(<any>error));
+    } 
+
+    /* (R)etreive Operation: get all invoice details records. */
+    loadData(): void {
+        this.restAPIService.get(this.baseUrl + REST_API_URI.INVOICES_DETAILS).subscribe( 
+            result => this.alldata = result, error => console.error(<any>error));
+    }
+
+    /* When user clicked on the selected*/
+    invoiceSelected(id:any) : void 
+    {
+        console.log("[Item selected]:"+id); 
+        if(id > 0)
+        {
+            this.selectedInvoice = this.invoices.filter(x => x.idPk == id)[0];
+            this.isCreatedEnabled = true;
+            //Debug 
+            //console.log("[selectedInvoice]:" + JSON.stringify(this.selectedInvoice));
+        }
+        else {
+            this.selectedInvoice = 
+            {
+                idPk: 0,
+                date: new Date,
+                doa: new Date,
+                flightNo: '',
+                total: 0,
+                supplierFk: -1,
+                supplierFkNavigation: {
+                    name:''
+                }             
+            }
+            this.isCreatedEnabled = false;
+        }
+    }
+}

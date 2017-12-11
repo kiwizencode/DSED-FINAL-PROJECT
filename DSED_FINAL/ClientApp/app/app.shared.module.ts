@@ -18,13 +18,16 @@ import { HomeComponent } from './components/app/home/home.component';
 import { InvoicesComponent } from './components/app/home/invoices/invoices.component';
 /* Invoice Information Page */
 import { InvoiceInfoComponent } from './components/app/home/invoices/invoice-info/invoice-info.component';
+/* Invoice Item Page*/
+import { InvoiceItemsComponent } from './components/app/home/invoice-items/invoice-items.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent, // Menu Component
         HomeComponent,   // Home Page Component 
-        InvoicesComponent, InvoiceInfoComponent   // Components related to Invoices
+        InvoicesComponent, InvoiceInfoComponent,   // Components related to Invoices
+        InvoiceItemsComponent
     ],
     imports: [
         CommonModule,
@@ -34,6 +37,7 @@ import { InvoiceInfoComponent } from './components/app/home/invoices/invoice-inf
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'home/invoices', component: InvoicesComponent},
+            { path: 'home/invoice-items', component: InvoiceItemsComponent},
             { path: '**', redirectTo: 'home' }
         ])
     ],

@@ -28,7 +28,7 @@ export class InvoicesComponent implements OnInit {
 
     /* Form Control variables for invoice detail data entry */
     DialogCaption: string;
-    ButtonCaption: string;    
+    ButtonCaption: string;
 
     constructor( @Inject('BASE_URL') private baseUrl: string,
                     private restAPIService: RestAPIService) {}      
@@ -83,5 +83,18 @@ export class InvoicesComponent implements OnInit {
 
         /* set to selected record */
         this.selected = data ;
-    }     
+    }
+    
+    /* Delete Invoice */
+    deleteData(data: any): void {
+        /* set to (D)elete DB Operation */
+        this.DB_Operation = CRUD_Operation.delete;
+
+        /* setup detail page's variables */
+        this.DialogCaption = 'Confirm to Delete?' ;
+        this.ButtonCaption = 'Delete' ;
+
+        /* set to selected record */
+        this.selected = data ;
+    }    
 }

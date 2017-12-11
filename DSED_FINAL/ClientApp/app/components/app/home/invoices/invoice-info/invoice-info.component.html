@@ -6,7 +6,7 @@
     <!-- Panel Body -->
     <div class="panel-body">
         <div class="form-group" [formGroup]="modalForm">
-            <div class="row">
+            <div class="row">   
                 <div class="column">
                     <div>
                         <!-- Invoice Date -->
@@ -40,7 +40,7 @@
                     <div>
                         <p><span>&nbsp;Date of Arrival</span></p>
                         <input type="datetime-local" class="form-control" formControlName="doa" name="doa">
-                    </div>  
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,10 +48,10 @@
 
     <!-- Panel Footer -->
     <div class="panel-footer" *ngIf="isModal">
-        <div *ngIf="isModal">
+        <div>
             <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-            <button class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">
-                    <!-- [disabled]="modalForm.invalid" -->
+            <button class="btn btn-primary" data-dismiss="modal" 
+                    (click)="onSubmit(modalForm.value)" [disabled]="modalForm.invalid">
                 {{ButtonCaption}}
             </button>     
         </div>

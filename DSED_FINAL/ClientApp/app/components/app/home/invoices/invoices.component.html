@@ -93,11 +93,13 @@
 
 <!-- data modal input form -->
 <div class="modal fade" id="inputModal" role="dialog" >
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-sm">
         <div class="body-content">
             <inv-info [DialogCaption]="DialogCaption"
                         [ButtonCaption]="ButtonCaption"
-                        [data]="selected">
+                        [data]="selected"
+                        [DB_Operation]="DB_Operation"
+                        (Click)="loadData()">
             </inv-info> 
         </div>
     </div>
