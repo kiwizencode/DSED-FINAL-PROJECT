@@ -1,0 +1,59 @@
+<div class="panel panel-primary">
+    <div class="panel-heading" *ngIf="isModal">
+            <button type="button" class="close" data-dismiss="modal">X</button>
+            <h4>{{DialogCaption}}</h4>
+    </div>
+    <!-- Panel Body -->
+    <div class="panel-body">
+        <div class="form-group" [formGroup]="modalForm">
+            <div class="row">
+                <div class="column">
+                    <div>
+                        <!-- Invoice Date -->
+                        <p><span>&nbsp;Date</span></p>
+                        <input type="datetime-local" class="form-control" formControlName="date" name="date">
+                    </div>
+                    <br />
+                    <div>
+                        <p><span>&nbsp;Supplier Name</span></p>
+                        <!--
+                        <input type="datetime-local" class="form-control" formControlName="date" name="date"> -->
+                        <!-- Angular 2 Bind DropDown List Using Web API -->
+                        <!-- http://www.c-sharpcorner.com/article/angular-2-bind-dropdown-list-using-web-api/ -->
+                        <select class="form-control" formControlName="supplierFk" name="supplierFk">
+                            <option *ngFor="let item of suppliers" value={{item.idPk}}>{{item.name}}</option>
+                        </select>
+                    </div>
+                    <br /> 
+                </div>
+                <div class="column">
+                    <div>
+                        <p><span>&nbsp;Flight Detail</span></p>
+                        <input type="text" class="form-control" formControlName="flightNo" name="flightNo">
+                    </div>
+                    <br />   
+                    <p><span>&nbsp;Quantity</span></p>
+                    <input type="text" class="form-control" formControlName="total" name="total">      
+                    <br /> 
+                </div>
+                <div class="column">
+                    <div>
+                        <p><span>&nbsp;Date of Arrival</span></p>
+                        <input type="datetime-local" class="form-control" formControlName="doa" name="doa">
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel Footer -->
+    <div class="panel-footer" *ngIf="isModal">
+        <div *ngIf="isModal">
+            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+            <button class="btn btn-primary" data-dismiss="modal" (click)="onSubmit()">
+                    <!-- [disabled]="modalForm.invalid" -->
+                {{ButtonCaption}}
+            </button>     
+        </div>
+    </div>
+</div>
