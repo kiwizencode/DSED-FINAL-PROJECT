@@ -14,8 +14,8 @@ namespace DSED_FINAL.Models
         }
 
         [Key]
-        [Column("PK_ID")]
-        public int PkId { get; set; }
+        [Column("ID_PK")]
+        public int IdPk { get; set; }
         [Column("INV_FK")]
         public int InvFk { get; set; }
         [Column("SPECIES_FK")]

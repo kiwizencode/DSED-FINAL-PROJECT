@@ -4,8 +4,6 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.ResponseCompression;
-using System.IO.Compression;
 
 namespace DSED_FINAL
 {
@@ -22,20 +20,8 @@ namespace DSED_FINAL
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<Models.DSEDContext>(
-                options => options.UseSqlServer(Configuration["Database:ConnectionString"])
-            );
+                options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
-            /*  
-             *  Enable Response Compression In ASP.NET Core
-             *  http://www.binaryintellect.net/articles/85973b21-5466-413d-9cc5-f44c63686859.aspx
-             */
-            services.Configure<GzipCompressionProviderOptions>(
-                options => options.Level = CompressionLevel.Optimal
-            );
-            services.AddResponseCompression(
-                options => options.Providers.Add<GzipCompressionProvider>()
-            );
-            /* */
             services.AddMvc();
         }
 
@@ -54,12 +40,6 @@ namespace DSED_FINAL
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            /*  
-             *  Enable Response Compression In ASP.NET Core
-             *  http://www.binaryintellect.net/articles/85973b21-5466-413d-9cc5-f44c63686859.aspx
-             */
-            app.UseResponseCompression();
 
             app.UseStaticFiles();
 

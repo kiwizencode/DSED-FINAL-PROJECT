@@ -1,43 +1,15 @@
 <div class="row">
-
     <div class="col-sm-4">
         <!-- Create a panel to hold all elements in the page -->
         <div class="panel panel-info">
             <!-- Panel Heading -->
-            <div class="panel-heading text-center">
-                Import
-            </div>
+            <div class="panel-heading text-center">Import Registry</div>
             <!-- Panel Body -->
             <div class="panel-body">
-                <button class="btn-primary btn-block btn-lg" [routerLink]="['/home/invoices']">Invoice</button>
-                <!--
-                <button class="btn-primary btn-block btn-lg" [routerLink]="['/system/quarantine-period']">Quarntine Period</button>
-                -->
+                <button class="btn-primary btn-block btn-lg" [routerLink]="['/home/invoices']">Invoices</button>
+                <button class="btn-primary btn-block btn-lg" [routerLink]="['/home/invoice-items']">Invoice Items</button>
             </div>
-            <!-- Panel Footer -->
-            <!--<div class="panel-footer">
-            </div>-->
-        </div>
-    </div>     
-    <div class="col-sm-4">
-        <!-- Create a panel to hold all elements in the page -->
-        <div class="panel panel-info">
-            <!-- Panel Heading -->
-            <div class="panel-heading text-center">
-                System
-            </div>
-            <!-- Panel Body -->
-            <div class="panel-body">
-                <button class="btn-primary btn-block btn-lg" [routerLink]="['/home/quarantine-period']">Quarantine Period</button>
-                <button class="btn-primary btn-block btn-lg" [routerLink]="['/home/suppliers']">Supplier</button>
-                <button class="btn-primary btn-block btn-lg" [routerLink]="['/public/species']">MPI Species</button>
-                <!--
-                <button class="btn-primary btn-block btn-lg" [routerLink]="['/system/quarantine-period']">Quarntine Period</button>
-                -->
-            </div>
-            <!-- Panel Footer -->
-            <!--<div class="panel-footer">
-            </div>-->
+            <!-- Panel Footer --><!--<div class="panel-footer"></div>-->
         </div>
     </div>    
 </div>
