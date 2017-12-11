@@ -1,0 +1,19 @@
+<div class="panel panel-primary">
+    <div class="panel-heading" *ngIf="isModal">
+            <button type="button" class="close" data-dismiss="modal">X</button>
+            <h4>{{DialogCaption}}</h4>
+    </div>
+    <!-- Panel Body -->
+    <div class="panel-body">
+    </div>
+    <!-- Panel Footer -->
+    <div class="panel-footer" *ngIf="isModal">
+        <div>
+            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+            <button class="btn btn-primary" data-dismiss="modal" 
+                    (click)="onSubmit(modalForm.value)" [disabled]="modalForm.invalid">
+                {{ButtonCaption}}
+            </button>     
+        </div>
+    </div>
+</div>        

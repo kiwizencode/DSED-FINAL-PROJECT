@@ -9,8 +9,10 @@ import { RestAPIService } from './../../../home/services/rest.api.service';
 import { REST_API_URI } from './../../services/rest.api.uri';
 import { CRUD_Operation } from './../../services/db.operation.enum';
 
+/*
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+*/
 
 /* 
     http://blog.rangle.io/observables-and-reactive-programming-in-angular-2/

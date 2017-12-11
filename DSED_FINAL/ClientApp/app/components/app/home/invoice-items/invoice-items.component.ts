@@ -3,7 +3,7 @@ import { Component, OnInit, Inject, Input, ValueProvider } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { Invoices } from './../models/invoices';
-import { InvoiceDetails } from './../models/invoices-item-detail';
+import { InvoiceDetails } from './../models/invoices-detail';
 
 import { RestAPIService } from './../../home/services/rest.api.service';
 import { REST_API_URI } from './../services/rest.api.uri';
@@ -21,14 +21,23 @@ export class InvoiceItemsComponent implements OnInit {
 
     invoices: Invoices [];
     selectedInvoice: Invoices ;
+
+
+    /* variables to store data model */
+
+    selected : InvoiceDetails ;
     alldata: InvoiceDetails [];
-    data: InvoiceDetails ;
+    data: InvoiceDetails ;        
 
     isChildComponent: boolean;
     isCreatedEnabled: boolean;
 
     /* CRUD operation indicator */
     DB_Operation: CRUD_Operation;
+
+    /* Form Control variables for invoice detail data entry */
+    DialogCaption: string;
+    ButtonCaption: string;    
 
     constructor( @Inject('BASE_URL') private baseUrl: string,
                     private restAPIService: RestAPIService,
@@ -96,4 +105,56 @@ export class InvoiceItemsComponent implements OnInit {
             this.isCreatedEnabled = false;
         }
     }
+
+    /* Create Invoice */
+    createData(): void {
+        /* set to (C)reate DB Operation */
+        this.DB_Operation = CRUD_Operation.create;
+
+        /* setup detail page's variables */
+        this.DialogCaption = 'Create New ' + this.pageTitle ;
+        this.ButtonCaption = 'Save' ;
+
+        /* Initialize a Invoice class */
+        this.selected =  {
+            idPk: -1,
+            invFk: -1,
+            speciesFk: -1,
+            qty: -1,
+            label: '',
+            cost: -1,
+            posted: false,
+            doa: 0,    
+            code: '',
+            invFkNavigation: null,
+            speciesFkNavigation: null
+        }        
+    }    
+
+    /* Edit Invoice */
+    editData(data: any): void {
+        /* set to (U)pdate DB Operation */
+        this.DB_Operation = CRUD_Operation.update;
+
+        /* setup detail page's variables */
+        this.DialogCaption = 'Edit ' + this.pageTitle ;
+        this.ButtonCaption = 'Update' ;
+
+        /* set to selected record */
+        this.selected = data ;
+    }   
+    
+    /* Delete Invoice */
+    deleteData(data: any): void {
+        /* set to (D)elete DB Operation */
+        this.DB_Operation = CRUD_Operation.delete;
+
+        /* setup detail page's variables */
+        this.DialogCaption = 'Confirm to Delete ' + this.pageTitle + '?' ;
+        this.ButtonCaption = 'Delete' ;
+
+        /* set to selected record */
+        this.selected = data ;
+    }
+    
 }

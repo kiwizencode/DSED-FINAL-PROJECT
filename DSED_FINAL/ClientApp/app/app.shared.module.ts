@@ -1,4 +1,5 @@
 
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -7,6 +8,7 @@ import { RouterModule } from '@angular/router';
 
 /* Service Component */
 import { RestAPIService } from './components/app/home/services/rest.api.service';
+import { DBCRUDService } from './components/app/home/services/db.crud.service';
 
 /* Main App Component */
 import { AppComponent } from './components/app/app.component';
@@ -16,10 +18,12 @@ import { NavMenuComponent } from './components/app/navmenu/navmenu.component';
 import { HomeComponent } from './components/app/home/home.component';
 /* Invoice Page Component */
 import { InvoicesComponent } from './components/app/home/invoices/invoices.component';
-/* Invoice Information Page */
+/* Invoice Information Component */
 import { InvoiceInfoComponent } from './components/app/home/invoices/invoice-info/invoice-info.component';
-/* Invoice Item Page*/
+/* Invoice Item Component */
 import { InvoiceItemsComponent } from './components/app/home/invoice-items/invoice-items.component';
+/* Invoice Item Information Component */
+import { InvoiceItemInfoComponent } from './components/app/home/invoice-items/invoice-item-info/invoice-item-info.component';
 
 @NgModule({
     declarations: [
@@ -27,7 +31,7 @@ import { InvoiceItemsComponent } from './components/app/home/invoice-items/invoi
         NavMenuComponent, // Menu Component
         HomeComponent,   // Home Page Component 
         InvoicesComponent, InvoiceInfoComponent,   // Components related to Invoices
-        InvoiceItemsComponent
+        InvoiceItemsComponent, InvoiceItemInfoComponent
     ],
     imports: [
         CommonModule,
@@ -42,7 +46,8 @@ import { InvoiceItemsComponent } from './components/app/home/invoice-items/invoi
         ])
     ],
     providers:[
-        RestAPIService
+        RestAPIService, 
+        DBCRUDService
     ]
 })
 export class AppModuleShared {

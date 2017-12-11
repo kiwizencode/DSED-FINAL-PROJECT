@@ -104,3 +104,17 @@
     <!-- Panel Footer 
     <div class="panel-footer"></div> -->
 </div>
+
+<!-- data modal input form -->
+<div class="modal fade" id="inputModal" role="dialog" >
+    <div class="modal-dialog modal-sm">
+        <div class="body-content">
+            <inv-item-info [DialogCaption]="DialogCaption"
+                        [ButtonCaption]="ButtonCaption"
+                        [data]="selected"
+                        [DB_Operation]="DB_Operation"
+                        (Click)="loadData()">
+            </inv-item-info> 
+        </div>
+    </div>
+</div> 
