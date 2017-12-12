@@ -37,12 +37,14 @@
     </div>
     <!-- Panel footer -->
     <div class="panel-footer">
-        <div>
-            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-            <button class="btn btn-primary" (click)="onSubmit(modalForm.value)"
-                    data-dismiss="modal" [disabled]="modalForm.invalid">
-                {{ButtonCaption}}
-            </button>
+        <div class="container">
+            <div style="float:right">
+                <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <button class="btn btn-primary" (click)="onSubmit(modalForm.value)"
+                        data-dismiss="modal" [disabled]="modalForm.invalid">
+                    {{ButtonCaption}}
+                </button>
+            </div>
         </div>
     </div>
 </div>

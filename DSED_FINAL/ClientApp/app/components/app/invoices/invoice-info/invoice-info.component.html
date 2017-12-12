@@ -48,12 +48,14 @@
 
     <!-- Panel Footer -->
     <div class="panel-footer" *ngIf="isModal">
-        <div>
-            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
-            <button class="btn btn-primary" data-dismiss="modal" 
-                    (click)="onSubmit(modalForm.value)" [disabled]="modalForm.invalid">
-                {{ButtonCaption}}
-            </button>     
+        <div class="container">
+            <div style="float:right">
+                <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+                <button class="btn btn-primary" (click)="onSubmit(modalForm.value)"
+                        data-dismiss="modal" [disabled]="modalForm.invalid">
+                    {{ButtonCaption}}
+                </button>
+            </div>
         </div>
     </div>
 </div>

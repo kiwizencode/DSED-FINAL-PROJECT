@@ -218,4 +218,8 @@ export class InvoiceDetailComponent implements OnInit {
         this.selected = data ;
     }
     
+    /* Go back to previous page */
+    goBack(): void {
+        this.location.back();
+    }
 }
