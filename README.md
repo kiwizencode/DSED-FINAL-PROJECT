@@ -9,4 +9,6 @@ The project should have the following functionality:
 3. monitoring all imported species through the quarantine period.
 4. allow the user to able to perform some reporting (i.e print out some report)
 
+so far I have completed the first 2 functionality and will be complete the rest soon ...... 
 
+stay tune .......
