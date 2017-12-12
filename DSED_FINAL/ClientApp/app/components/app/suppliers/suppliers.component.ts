@@ -10,8 +10,8 @@ import { CRUD_Service } from './../services/db.crud.service';
 import { REST_API_URI } from './../services/rest.api.uri';
 
 import { Observer } from 'rxjs';
-import { of } from 'rxjs/observable/of';
 import { Observable } from 'rxjs/Observable';
+//import { of } from 'rxjs/observable/of';
 
 @Component({
     selector: 'suppliers',
