@@ -16,7 +16,7 @@ export class SpeciesSearchComponent {
     searchBox:FormControl = new FormControl();
 
     constructor() {
-        this.searchBox.valueChanges.debounceTime(200)
+        this.searchBox.valueChanges.delay(100) //.debounceTime(250)
             .subscribe( (event) => this.searchEvent.emit(event));
         
         this.searchBox.setValue("");

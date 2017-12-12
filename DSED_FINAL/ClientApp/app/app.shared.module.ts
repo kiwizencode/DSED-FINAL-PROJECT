@@ -33,18 +33,19 @@ import { CRUD_Service } from './components/app/services/db.crud.service';
 
 @NgModule({
     declarations: [
-        AppComponent,
-        NavMenuComponent,
-        HomeComponent,
-        MPISpeciesComponent, SpeciesSearchComponent,
-        SuppliersComponent, SupplierDetailComponent,
-        InvoicesComponent, InvoiceInfoComponent,
-        InvoiceDetailComponent, InvoiceDetailInfoComponent
+        AppComponent,       // Main
+        NavMenuComponent,   // Menu 
+        HomeComponent,      // Home Page
+        MPISpeciesComponent, SpeciesSearchComponent,    // MPI Approved List
+        SuppliersComponent, SupplierDetailComponent,    // Supplier
+        InvoicesComponent, InvoiceInfoComponent,        // Invoices Master
+        InvoiceDetailComponent, InvoiceDetailInfoComponent  // Invoices Details
     ],
     imports: [
         CommonModule,
         HttpModule,
-        FormsModule, ReactiveFormsModule,
+        // need to add ReactiveFormsModule so as get Form Control working
+        FormsModule, ReactiveFormsModule, 
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },

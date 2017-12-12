@@ -19,6 +19,7 @@ namespace DSED_FINAL
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            /* Add database context services to the continer. */
             services.AddDbContext<Models.DSEDContext>(
                 options => options.UseSqlServer(Configuration["Database:ConnectionString"]));
 
