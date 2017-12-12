@@ -1,0 +1,122 @@
+<!-- Panel Template -->
+<div class="panel panel-info">
+    <!-- Panel Heading -->
+    <div class="panel-heading  text-center">
+        <div class="container">
+            <div style="float:left" *ngIf='isCreatedEnabled'>
+                <a class="btn btn-warning" data-toggle="modal" data-target="#inputModal"
+                    (click)="createData()">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </a>
+            </div>
+            <!-- pad with empty space between div-->
+            <div style="float:left;padding:5px;">&nbsp;&nbsp;</div>            
+            <div style="float:left">
+                <span style="font-size:22px;">{{pageTitle}} </span>
+            </div>
+        </div>
+    </div>
+    <!-- Panel Body -->
+    <div class="panel-body">
+        <div>
+            <span>&nbsp;Invoice :&nbsp;</span>
+            <!-- Angular 2 Bind DropDown List Using Web API -->
+            <!-- http://www.c-sharpcorner.com/article/angular-2-bind-dropdown-list-using-web-api/ -->
+            <select id="invoicepicker" (change)="invoiceSelected($event.target.value)"
+                    style="padding:5px;" [(ngModel)]="invoiceIdPk">
+                <option value="-1" selected></option>
+                <option *ngFor="let data of invoices" value={{data.idPk}}>
+                    {{data.date | date:'dd/MM/yyyy'}} {{data.flightNo}} [Qty:{{data.total}}]  {{data.supplierFkNavigation?.name}}
+                </option>
+            </select>
+            <p></p>
+            <div *ngIf='isChildComponent'>
+                <inv-info [selectedInvoice]="selectedInvoice" ></inv-info>
+            </div>
+        </div>
+
+        <!-- Display the message 'Loading' on the page while waiting for data to be sent from back-end -->
+        <p *ngIf="!alldata"><em>&nbsp;&nbsp;Loading...</em></p>
+
+        <!-- Display records in a table -->
+        <table class="table table-bordered table-striped table-responsive" *ngIf='alldata'>
+            <!-- Table Heading -->
+            <thead>
+                <tr>
+                    <th>Action</th>                    
+                    <th>ID</th>
+                    <th>Species</th>
+                    <th>Quantity</th>
+                    <th>Label</th>
+                    <th>Cost</th>
+                    <!--
+                    <th>Fight Detail</th>
+                     -->
+                    <!--
+                    <th>Close Date</th>
+                    <th>Flag</th>
+                    -->
+                </tr>
+            </thead>
+            <!-- Table Body -->
+            <tbody>
+                <tr *ngFor="let data of alldata" >
+                    <!-- Display Edit / Delete buttons on the 1st column of the table -->
+                    <!-- set the column to just fit contents-->
+                    <td style="width:1%;white-space:nowrap">
+                        <div>
+                            <!-- Edit Button -->
+                            <a class="btn btn-success btn-xs" (click)="editData(data)"
+                                data-toggle="modal" data-target="#inputModal">
+                                <!-- Display pencil symbol as Edit icon -->
+                                <span class='glyphicon glyphicon-pencil'></span>
+                            </a>
+                            <!-- Delete Button -->
+                            <a class="btn btn-danger btn-xs" (click)="deleteData(data)"
+                                data-toggle="modal" data-target="#inputModal">
+                                <!-- Display trash can symbol as Delete icon -->
+                                <span class='glyphicon glyphicon-trash'></span>
+                            </a>
+                        </div>
+                    </td>
+                    <!-- Format the following date using Angular Date Pipe -->                    
+                    <td>{{data.idPk}}</td>
+                    <td>{{data.speciesFkNavigation.scientific}}</td>
+                    <td>{{data.qty}}</td>
+                    <td>{{data.label}}</td>
+                    <td>{{data.cost}}</td>
+                    <!-- 
+                    <td>{{ data.date | date:'dd/MM/yyyy'}}</td>
+                    <td>{{ data.supplierFkNavigation?.name }}</td>
+                    
+                     -->
+                    <!--
+                    <td> -->
+                        <!-- How to center a button within a div?
+                            https://stackoverflow.com/questions/7560832/how-to-center-a-button-within-a-div -->
+                        <!--
+                        <div  style="justify-content:center;align-items:center;display:flex">
+                            <input type="checkbox" [checked]="data.closedFlag"  disabled>
+                        </div>
+                    </td> -->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Panel Footer 
+    <div class="panel-footer"></div> -->
+</div>
+
+<!-- data modal input form -->
+<div class="modal fade" id="inputModal" role="dialog" >
+    <div class="modal-dialog modal-sm">
+        <div class="body-content">
+            <inv-detail-info [DialogCaption]="DialogCaption"
+                        [ButtonCaption]="ButtonCaption"
+                        [data]="selected"
+                        [DB_Operation]="DB_Operation"
+                        (Click)="loadData()">
+            </inv-detail-info> 
+        </div>
+    </div>
+</div> 

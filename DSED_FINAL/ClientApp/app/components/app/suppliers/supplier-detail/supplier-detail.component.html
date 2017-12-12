@@ -1,0 +1,48 @@
+<div class="panel panel-primary">
+    <!-- Panel Heading -->
+    <div class="panel-heading">
+        <button type="button" class="close" data-dismiss="modal">X</button>
+        <h4 class="modal-title">
+            {{DialogCaption}}
+        </h4>
+    </div>
+    <!-- Panel Body -->
+    <div class="panel-body">
+        <div class="form-group" [formGroup]="modalForm">
+            <!-- Supplier Name -->
+            <div>
+                <p><span>&nbsp;Name</span></p>
+                <input type="text" class="form-control" formControlName="name" name="name">
+            </div>
+            <br />
+            <!-- Address -->
+            <div>
+                <p><span>&nbsp;Address</span></p>
+                <input type="text" class="form-control" formControlName="address01" name="address01">
+                <input type="text" class="form-control" formControlName="address02" name="address02">
+                <input type="text" class="form-control" formControlName="address03" name="address03">
+            </div>
+            <br />
+            <!-- Contact Number -->
+            <div>
+                <p><span>&nbsp;Phone</span></p>
+                <input type="text" class="form-control" formControlName="phone" name="phone">
+            </div>
+            <!-- Fax Number -->
+            <div>
+                <p><span>&nbsp;Fax</span></p>
+                <input type="text" class="form-control" formControlName="fax" name="fax">
+            </div>
+        </div>
+    </div>
+    <!-- Panel footer -->
+    <div class="panel-footer">
+        <div>
+            <a class="btn btn-default" data-dismiss="modal">Cancel</a>
+            <button class="btn btn-primary" (click)="onSubmit(modalForm.value)"
+                    data-dismiss="modal" [disabled]="modalForm.invalid">
+                {{ButtonCaption}}
+            </button>
+        </div>
+    </div>
+</div>
