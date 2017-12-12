@@ -5,5 +5,5 @@ import { Component } from '@angular/core';
     templateUrl: './navmenu.component.html'
 })
 export class NavMenuComponent {
-    pageTitle:string = 'Home';
+    pageTitle:string = 'Home' ;
 }
