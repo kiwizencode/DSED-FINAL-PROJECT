@@ -4,11 +4,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule} from '@angular/router';
 
 /* Service Component */
 import { RestAPIService } from './components/app/home/services/rest.api.service';
-import { DBCRUDService } from './components/app/home/services/db.crud.service';
+import { CRUD_Service } from './components/app/home/services/db.crud.service';
 
 /* Main App Component */
 import { AppComponent } from './components/app/app.component';
@@ -41,13 +41,14 @@ import { InvoiceItemInfoComponent } from './components/app/home/invoice-items/in
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'home/invoices', component: InvoicesComponent},
+            { path: 'home/invoice-items/:id', component: InvoiceItemsComponent},
             { path: 'home/invoice-items', component: InvoiceItemsComponent},
             { path: '**', redirectTo: 'home' }
         ])
     ],
     providers:[
         RestAPIService, 
-        DBCRUDService
+        CRUD_Service
     ]
 })
 export class AppModuleShared {

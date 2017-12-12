@@ -8,6 +8,7 @@ export interface InvoiceDetails {
     posted: boolean,
     doa: number,    
     code: string,
-    invFkNavigation?: null,
-    speciesFkNavigation?: null
+    invFkNavigation?: any,
+    speciesFkNavigation?: any,
+    quarantineTank?: any
 }

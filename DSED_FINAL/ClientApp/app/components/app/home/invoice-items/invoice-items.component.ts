@@ -1,6 +1,8 @@
 
 import { Component, OnInit, Inject, Input, ValueProvider } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Invoices } from './../models/invoices';
 import { InvoiceDetails } from './../models/invoices-detail';
@@ -14,6 +16,7 @@ import { CRUD_Operation } from './../services/db.operation.enum';
     templateUrl: './invoice-items.component.html'
 })
 export class InvoiceItemsComponent implements OnInit {
+
     /* page title */
     pageTitle:string ="Invoice Items";
 
@@ -21,7 +24,6 @@ export class InvoiceItemsComponent implements OnInit {
 
     invoices: Invoices [];
     selectedInvoice: Invoices ;
-
 
     /* variables to store data model */
 
@@ -32,6 +34,8 @@ export class InvoiceItemsComponent implements OnInit {
     isChildComponent: boolean;
     isCreatedEnabled: boolean;
 
+    invoiceIdPk: number ;
+
     /* CRUD operation indicator */
     DB_Operation: CRUD_Operation;
 
@@ -41,14 +45,33 @@ export class InvoiceItemsComponent implements OnInit {
 
     constructor( @Inject('BASE_URL') private baseUrl: string,
                     private restAPIService: RestAPIService,
-                    private formbuilder: FormBuilder) {}
+                    private formbuilder: FormBuilder,
+                    // https://angular.io/tutorial/toh-pt5
+                    private route: ActivatedRoute,  
+                    private location: Location) {}
 
     ngOnInit(): void {
-        this.loadInvoices();
-        this.loadData();
-        this.isChildComponent = false;
-        this.isCreatedEnabled = false;
-    }
+
+        const val  = this.route.snapshot.paramMap.get('id');
+        let id = val == null ? -1 : +val ;
+
+        
+        if(id > 0)
+        {
+            this.isChildComponent = true ;
+            this.isCreatedEnabled = true ;
+            this.invoiceIdPk = id ;
+        }
+        else{
+            this.isChildComponent = false; //false;
+            this.isCreatedEnabled = false;
+            this.invoiceIdPk=-1;
+        }   
+
+        //this.loadData();
+        
+        this.loadInvoices();        
+    } 
 
     /* Initialise Form Control variables to be used for data entry */
     initialiseForm(): void {
@@ -69,8 +92,29 @@ export class InvoiceItemsComponent implements OnInit {
     /* (R)etreive Operation: get all invoices records. */
     loadInvoices(): void {
         this.restAPIService.get(this.baseUrl + REST_API_URI.INVOICES).subscribe( 
-            result => this.invoices = result, error => console.error(<any>error));
-    } 
+            result => { 
+                this.invoices = result ;
+                let id = this.invoiceIdPk ;
+                if( id > 0)
+                {
+                    this.selectedInvoice = this.invoices.filter(x => x.idPk == id)[0];
+                    this.loadInvoiceDetails(id);
+                }
+                else
+                {
+                    this.loadData();
+                }
+            },
+            error => console.error(<any>error));
+    }
+
+    loadInvoiceDetails(id:number) : void {
+        this.restAPIService.get(this.baseUrl + REST_API_URI.INVOICES_DETAILS).subscribe( 
+            result =>{
+                let all_inv_detail = result as InvoiceDetails [] ;
+                this.alldata = all_inv_detail.filter( x => x.invFk == id) ;
+            }, error => console.error(<any>error));
+    }
 
     /* (R)etreive Operation: get all invoice details records. */
     loadData(): void {
@@ -86,8 +130,7 @@ export class InvoiceItemsComponent implements OnInit {
         {
             this.selectedInvoice = this.invoices.filter(x => x.idPk == id)[0];
             this.isCreatedEnabled = true;
-            //Debug 
-            //console.log("[selectedInvoice]:" + JSON.stringify(this.selectedInvoice));
+            this.loadInvoiceDetails(id);
         }
         else {
             this.selectedInvoice = 
@@ -103,7 +146,9 @@ export class InvoiceItemsComponent implements OnInit {
                 }             
             }
             this.isCreatedEnabled = false;
+            this.loadData();
         }
+        
     }
 
     /* Create Invoice */
@@ -117,22 +162,32 @@ export class InvoiceItemsComponent implements OnInit {
 
         /* Initialize a Invoice class */
         this.selected =  {
-            idPk: -1,
-            invFk: -1,
-            speciesFk: -1,
-            qty: -1,
+            idPk: 0,
+            invFk: this.selectedInvoice.idPk,
+            speciesFk: 0,
+            qty: 0,
             label: '',
-            cost: -1,
+            cost: 0,
             posted: false,
             doa: 0,    
             code: '',
-            invFkNavigation: null,
-            speciesFkNavigation: null
-        }        
+            invFkNavigation: this.selectedInvoice,
+            speciesFkNavigation: null,
+            quarantineTank:null
+        }
+        
+        //console.log("" + JSON.stringify(this.selected));
     }    
 
     /* Edit Invoice */
     editData(data: any): void {
+
+        // how to update select value
+        this.invoiceIdPk=data.invFk;
+        this.invoiceSelected(data.invFk);
+
+        data.invFkNavigation = this.selectedInvoice;
+
         /* set to (U)pdate DB Operation */
         this.DB_Operation = CRUD_Operation.update;
 
@@ -146,6 +201,13 @@ export class InvoiceItemsComponent implements OnInit {
     
     /* Delete Invoice */
     deleteData(data: any): void {
+
+        // how to update select value
+        this.invoiceIdPk=data.invFk;
+        this.invoiceSelected(data.invFk);
+
+        data.invFkNavigation = this.selectedInvoice;
+                
         /* set to (D)elete DB Operation */
         this.DB_Operation = CRUD_Operation.delete;
 

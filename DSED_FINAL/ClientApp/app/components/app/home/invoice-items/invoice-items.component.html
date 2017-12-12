@@ -22,10 +22,12 @@
             <span>&nbsp;Invoice :&nbsp;</span>
             <!-- Angular 2 Bind DropDown List Using Web API -->
             <!-- http://www.c-sharpcorner.com/article/angular-2-bind-dropdown-list-using-web-api/ -->
-            <select class="selectpicker" (change)="invoiceSelected($event.target.value)"
-                    style="padding:5px;">
-                <option value="-1"></option>
-                <option *ngFor="let data of invoices" value={{data.idPk}}>{{data.date | date:'dd/MM/yyyy'}} {{data.flightNo}} [Qty:{{data.total}}]  {{data.supplierFkNavigation?.name}}</option>
+            <select id="invoicepicker" (change)="invoiceSelected($event.target.value)"
+                    style="padding:5px;" [(ngModel)]="invoiceIdPk">
+                <option value="-1" selected></option>
+                <option *ngFor="let data of invoices" value={{data.idPk}}>
+                    {{data.date | date:'dd/MM/yyyy'}} {{data.flightNo}} [Qty:{{data.total}}]  {{data.supplierFkNavigation?.name}}
+                </option>
             </select>
             <p></p>
             <div *ngIf='isChildComponent'>

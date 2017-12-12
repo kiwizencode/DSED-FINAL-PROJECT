@@ -5,6 +5,42 @@
     </div>
     <!-- Panel Body -->
     <div class="panel-body">
+        <div class="form-group" [formGroup]="modalForm">
+            <div>
+                <p><span>&nbsp;Invoice</span></p>
+                <!--
+                -->
+                <textarea cols="80%" readonly> {{modalForm.value.invFkNavigation.date | date:'dd/MM/yyyy' }} {{modalForm.value.invFkNavigation.flightNo}} [Qty:{{modalForm.value.invFkNavigation.total}}] {{modalForm.value.invFkNavigation.supplierFkNavigation?.name}}</textarea>
+            </div>
+            <br/>
+            <div>
+                <p><span>&nbsp;Speices</span></p>
+                <!--
+                <input type="datetime-local" class="form-control" formControlName="date" name="date"> -->
+                <!-- Angular 2 Bind DropDown List Using Web API -->
+                <!-- http://www.c-sharpcorner.com/article/angular-2-bind-dropdown-list-using-web-api/ -->
+                
+                <select class="form-control" formControlName="speciesFk" name="speciesFk">
+                    <option *ngFor="let item of species" value={{item.idPk}}>{{item.scientific}}</option>
+                </select>
+
+            </div>
+            <br/>
+            <div>
+                <p><span>&nbsp;Common Name</span></p>
+                <input type="text" class="form-control" formControlName="label" name="label">
+            </div>
+            <br/>            
+            <div>
+                <p><span>&nbsp;Order Quantity</span></p>
+                <input type="text" class="form-control" formControlName="qty" name="qty">
+            </div>
+            <br/>
+            <div>
+                <p><span>&nbsp;Cost</span></p>
+                <input type="text" class="form-control" formControlName="cost" name="cost">
+            </div>            
+        </div>                
     </div>
     <!-- Panel Footer -->
     <div class="panel-footer" *ngIf="isModal">
@@ -16,4 +52,22 @@
             </button>     
         </div>
     </div>
-</div>        
+</div>   
+
+<!-- 
+
+            /* 
+            idPk: number,
+            invFk: number,
+            speciesFk: number,
+            qty: number,
+            label: string,
+            cost: number,
+            posted: boolean,
+            doa: number,    
+            code: string,
+            invFkNavigation?: null,
+            speciesFkNavigation?: null
+        */
+
+-->
